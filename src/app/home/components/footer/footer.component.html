@@ -1,0 +1,20 @@
+<footer class="footer" [class.active]="footerActive">
+  <div class="stories">
+    @for (story of stories; track $index) {
+    <div class="story">
+      <img [src]="story.image" alt="Story image" />
+      <span>{{ story.username }}</span>
+    </div>
+
+    }
+    <button class="add-story">Subir historia</button>
+  </div>
+</footer>
+
+<button
+  class="toggle-footer"
+  (click)="toggleFooter()"
+  [class.active]="footerActive"
+>
+  <span>+</span>
+</button>

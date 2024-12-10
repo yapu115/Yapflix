@@ -1,0 +1,71 @@
+<section class="posts">
+  @for (post of posts; track $index) {
+  <div class="post">
+    <div class="post-header">
+      <div class="user-info">
+        <img [src]="post.userAvatar" alt="Avatar" class="avatar" />
+        <span class="username">{{ post.username }}</span>
+      </div>
+      <span class="post-date">{{ post.date | date : "shortDate" }}</span>
+    </div>
+    <div class="post-content">
+      <div class="carousel-container">
+        <div class="carousel" [style.transform]="getCarouselTransform($index)">
+          @for (image of post.images; track $index) {
+          <div class="carousel-item">
+            <img [src]="image" alt="Imagen del post" class="carousel-image" />
+          </div>
+          }
+        </div>
+        <button class="prev" (click)="prevImage($index)">&#10094;</button>
+        <button class="next" (click)="nextImage($index)">&#10095;</button>
+      </div>
+    </div>
+
+    <div class="post-footer">
+      <div class="icon-container">
+        <div class="likes-container">
+          <i class="fa fa-heart"></i>
+          <span class="like-counter">{{ post.likes }} likes</span>
+        </div>
+        <div class="comment-container">
+          <i class="fa fa-comment" (click)="openComments(post)"></i>
+          <span class="comment-counter"
+            >{{ post.comments?.length }} comments</span
+          >
+        </div>
+        <div class="share-container">
+          <i class="fa fa-share"></i>
+        </div>
+      </div>
+    </div>
+    @if (post.message){
+    <div class="post-message">
+      {{ post.message }}
+    </div>
+
+    }
+  </div>
+  }
+  <div class="modal" [class.show]="selectedPost" (click)="closeModal($event)">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>Comentarios</h3>
+        <button class="close" (click)="closeModal()">X</button>
+        <!-- <p>hello there</p> -->
+      </div>
+      <div class="modal-body">
+        @for (comment of selectedPost?.comments; track $index) {
+        <div class="comment">
+          <img [src]="comment.userAvatar" alt="Avatar" class="comment-avatar" />
+          <div class="comment-details">
+            <span class="comment-username">{{ comment.user }}</span>
+            <span class="comment-date">{{ formatDate(comment.date) }}</span>
+            <p class="comment-text">{{ comment.message }}</p>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+* {
+  padding: 0;
+  background-color: #000;
+}
+
+.app-container {
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .app-container {
+    margin-top: 0;
+    margin-left: 80px;
+  }
+}

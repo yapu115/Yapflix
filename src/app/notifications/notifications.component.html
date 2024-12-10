@@ -1,0 +1,20 @@
+<div class="body">
+  <div class="notifications-container">
+    <h2 class="title">Notifications</h2>
+
+    @for (group of notifications; track $index) {
+    <div class="group">
+      <h3 class="group-title">{{ group.title }}</h3>
+      @for (notification of group.items; track $index) {
+      <div class="notification">
+        <img [src]="notification.photo" alt="User photo" class="photo" />
+        <div class="content">
+          <p class="message">{{ notification.message }}</p>
+          <span class="date">{{ notification.date }}</span>
+        </div>
+      </div>
+      }
+    </div>
+    }
+  </div>
+</div>

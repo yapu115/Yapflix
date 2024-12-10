@@ -1,0 +1,11 @@
+<div class="chat-list">
+  @for (chat of chats; track $index) {
+  <div class="chat-item" (click)="selectChat(chat)">
+    <img [src]="chat.avatar" alt="Avatar" class="avatar" />
+    <div class="chat-info">
+      <span class="chat-name">{{ chat.name }}</span>
+      <span class="chat-last">{{ chat.lastMessage }}</span>
+    </div>
+  </div>
+  }
+</div>

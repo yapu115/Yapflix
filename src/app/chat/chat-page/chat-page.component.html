@@ -1,0 +1,19 @@
+<div class="chat-container">
+  <button
+    class="toggle-sidebar"
+    (click)="toggleSidebar()"
+    [class.active]="isSidebarActive"
+  >
+    @if (isSidebarActive) {&#10094;} @else {&#10095;}
+  </button>
+
+  <!-- Barra lateral de chats -->
+  <app-users-list
+    class="sidebar"
+    [class.active]="isSidebarActive"
+    (chatSelected)="onChatSelected($event)"
+  ></app-users-list>
+
+  <!-- Área del chat principal -->
+  <app-body class="main" [selectedChat]="selectedChat"></app-body>
+</div>

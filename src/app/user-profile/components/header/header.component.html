@@ -1,0 +1,20 @@
+<header class="profile-header">
+  <div class="avatar-container">
+    <img [src]="user.avatar" alt="User Avatar" class="avatar" />
+  </div>
+  <div class="user-info">
+    <h1 class="username">{{ user.username }}</h1>
+    <p class="bio">{{ user.bio }}</p>
+    <div class="stats">
+      <span
+        ><strong>{{ user.posts }}</strong> Posts</span
+      >
+      <span
+        ><strong>{{ user.followers }}</strong> Followers</span
+      >
+      <span
+        ><strong>{{ user.following }}</strong> Following</span
+      >
+    </div>
+  </div>
+</header>

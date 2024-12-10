@@ -1,0 +1,29 @@
+@if (selectedChat){
+<div class="chat-header">
+  <img [src]="selectedChat.avatar" alt="Avatar" class="avatar" />
+  <div class="chat-details">
+    <span class="chat-name">{{ selectedChat.name }}</span>
+  </div>
+</div>
+}
+
+<div class="chat-messages">
+  @for (message of messages; track $index) { @if (userService.getUsername() ===
+  message.username){
+  <div class="message sent">
+    <p>{{ message.text }}</p>
+    <span class="time"> {{ message.date | date : "h:mm" }}</span>
+  </div>
+
+  } @else {
+  <div class="message received">
+    <p>{{ message.text }}</p>
+    <span class="time"> {{ message.date | date : "h:mm" }}</span>
+  </div>
+  } }
+</div>
+
+<div class="chat-input">
+  <input type="text" placeholder="Type a message..." />
+  <button>Send</button>
+</div>

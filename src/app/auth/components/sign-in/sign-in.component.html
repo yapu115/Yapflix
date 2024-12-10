@@ -1,0 +1,62 @@
+<div class="body">
+  <div class="signin-container">
+    <div class="signin-form">
+      <div class="title-container">
+        <h1 class="title">Sign in</h1>
+        <p class="subtitle">Log into your account</p>
+      </div>
+      <form [formGroup]="loginForm" autocomplete="off">
+        <div class="form-group">
+          <input
+            placeholder="Username"
+            formControlName="username"
+            type="text"
+            name="username"
+            class="form-control"
+          />
+        </div>
+        @if (usernameError){
+        <div class="error-message">
+          <p>{{ usernameMessage }}</p>
+        </div>
+        }
+
+        <div class="form-group">
+          <input
+            placeholder="Password"
+            formControlName="password"
+            type="password"
+            name="password"
+            class="form-control"
+          />
+        </div>
+        @if (passwordError){
+        <div class="error-message">
+          <p>{{ passwordMessage }}</p>
+        </div>
+        }
+
+        <div class="button-signIn" (click)="onSignIn()">
+          <div id="circle"></div>
+          <p>Log in</p>
+        </div>
+      </form>
+
+      <p class="sign-up">
+        Don't have an account? <strong routerLink="/sign-up">Sign up</strong>
+      </p>
+    </div>
+
+    <div class="image-slider">
+      <div class="img-container">
+        @for (image of images; track $index) {
+        <img
+          [src]="image"
+          [class.active]="$index === currentImage"
+          alt="Slider image"
+        />
+        }
+      </div>
+    </div>
+  </div>
+</div>
