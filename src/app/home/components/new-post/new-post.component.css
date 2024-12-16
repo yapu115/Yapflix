@@ -1,0 +1,149 @@
+.preview-container {
+  display: flex;
+  height: 100vh;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+
+.preview-carousel {
+  display: flex;
+  flex-direction: column;
+  background-color: #1d0e32;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-container {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+  background: #1c1c1c;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-item {
+  min-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+}
+
+.carousel-container button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.thumbnails {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  overflow: hidden;
+  margin-top: 1.5rem;
+}
+
+.thumbnail.active {
+  border-color: #f3bb20;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.description {
+  width: 100%;
+  /* min-height: 100px; */
+  padding: 1rem;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #2a2a2e;
+  border: 2px solid #6a1b9a;
+  border-radius: 8px;
+  outline: none;
+  resize: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.description::placeholder {
+  color: #aaaaaa;
+  font-style: italic;
+}
+
+.description:focus {
+  border-color: #9c27b0;
+  box-shadow: 0 0 8px rgba(156, 39, 176, 0.5);
+  background-color: #1d1d21;
+}
+
+.upload-img {
+  background-color: #5c27d7;
+  color: #ffffff;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.upload-img:hover {
+  background-color: #4a1fb3;
+  transform: scale(1.05);
+}
+
+.upload-img:active {
+  background-color: #3a168d;
+  transform: scale(0.95);
+}
+
+.upload-img:focus {
+  outline: 2px solid #9d79ff;
+  outline-offset: 2px;
+}

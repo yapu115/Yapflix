@@ -11,15 +11,14 @@ import { BodyComponent } from '../components/body/body.component';
 })
 export class ChatPageComponent {
   selectedChat: any = null;
-  isSidebarActive: boolean = false; // Indica si el sidebar está activo
+  isSidebarActive: boolean = false;
 
-  // Lógica para mostrar/ocultar la barra lateral
   toggleSidebar() {
     this.isSidebarActive = !this.isSidebarActive;
   }
 
   onChatSelected(chat: any) {
     this.selectedChat = chat;
-    this.isSidebarActive = false; // Oculta el sidebar después de seleccionar un chat en móviles
+    this.isSidebarActive = false;
   }
 }

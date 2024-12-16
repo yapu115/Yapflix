@@ -1,8 +1,10 @@
 <!-- home.component.html -->
 <div class="home-container">
-  <!-- Posts -->
-  <app-posts></app-posts>
+  <div class="home-posts">
+    <div class="blur-background" id="blur-bg" onclick="toggleButtons()"></div>
+    <app-posts [showPostOptions]="showPostOptions"></app-posts>
+  </div>
 
   <!-- Footer (Hidden Stories) -->
-  <app-footer></app-footer>
+  <app-footer (showPostOptions)="onPostOptions($event)"></app-footer>
 </div>

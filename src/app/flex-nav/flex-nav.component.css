@@ -40,7 +40,6 @@
   margin-bottom: 10px;
 }
 
-/* Modo header en pantallas pequeñas */
 @media screen and (max-width: 767px) {
   .sidebar {
     flex-direction: row;

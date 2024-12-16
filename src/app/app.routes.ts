@@ -18,6 +18,14 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'new-post',
+    loadComponent: () =>
+      import('./home/components/new-post/new-post.component').then(
+        (m) => m.NewPostComponent
+      ),
+    canActivate: [authGuard],
+  },
+  {
     path: 'sign-up',
     loadComponent: () =>
       import('./auth/components/sign-up/sign-up.component').then(

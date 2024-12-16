@@ -1,16 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 @Component({
   selector: 'app-posts',
   standalone: true,
-  imports: [SlickCarouselModule, CommonModule],
+  imports: [SlickCarouselModule, CommonModule, RouterLink],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.css',
   schemas: [],
 })
 export class PostsComponent {
+  @Input() showPostOptions: boolean = false;
+
   posts = [
     {
       username: 'Allen the alien',
@@ -73,11 +76,9 @@ export class PostsComponent {
   currentIndex: number[] = [];
 
   constructor() {
-    // Inicializamos los índices del carrusel de cada post
     this.currentIndex = this.posts.map(() => 0);
   }
 
-  // Función para cambiar la imagen en un post específico
   nextImage(postIndex: number) {
     if (
       this.currentIndex[postIndex] <
@@ -97,13 +98,11 @@ export class PostsComponent {
     }
   }
 
-  // Obtener la transformación para el carrusel de un post
   getCarouselTransform(postIndex: number): string {
     return `translateX(-${this.currentIndex[postIndex] * 100}%)`;
   }
 
-  selectedPost: any = null; // Post seleccionado para mostrar los comentarios
-
+  selectedPost: any = null;
   openComments(post: any) {
     this.selectedPost = post;
   }

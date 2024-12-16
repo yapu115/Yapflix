@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -9,6 +9,7 @@ import { Component, HostListener } from '@angular/core';
 })
 export class FooterComponent {
   footerActive: boolean = false;
+  @Output() showPostOptions = new EventEmitter<boolean>();
 
   stories = [
     {
@@ -19,95 +20,10 @@ export class FooterComponent {
       username: 'story2',
       image: '/imgs/tests/posts/1-mark.jpg',
     },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
-    // {
-    //   username: 'story2',
-    //   image: 'https://via.placeholder.com/60',
-    // },
   ];
+
   toggleFooter() {
     this.footerActive = !this.footerActive;
+    this.showPostOptions.emit(this.footerActive);
   }
-
-  // @HostListener('window:scroll', [])
-  // onScroll() {
-  //   console.log('aa');
-  //   const scrollY = window.scrollY || document.documentElement.scrollTop;
-  //   this.footerActive = scrollY > 200; // Muestra el footer cuando el usuario baja
-  // }
 }

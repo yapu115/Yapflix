@@ -10,7 +10,7 @@
   max-width: 300px;
   background-color: #1a1a1a;
   border-right: 1px solid #333;
-  display: none; /* Ocultar barra lateral por defecto */
+  display: none;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -19,7 +19,7 @@
 }
 
 .chat-container .sidebar.active {
-  left: 0; /* Muestra la barra cuando está activa */
+  left: 0;
   display: flex;
 }
 
@@ -59,6 +59,6 @@
   }
 
   .chat-container .toggle-sidebar {
-    display: none; /* Oculta el botón en pantallas grandes */
+    display: none;
   }
 }

@@ -47,14 +47,17 @@
     }
   </div>
   }
-  <div class="modal" [class.show]="selectedPost" (click)="closeModal($event)">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h3>Comentarios</h3>
-        <button class="close" (click)="closeModal()">X</button>
-        <!-- <p>hello there</p> -->
+  <div
+    class="comments-modal"
+    [class.show]="selectedPost"
+    (click)="closeModal($event)"
+  >
+    <div class="comments-modal-content" (click)="$event.stopPropagation()">
+      <div class="comments-modal-header">
+        <h3>Comments</h3>
+        <button class="comments-modal-close" (click)="closeModal()">X</button>
       </div>
-      <div class="modal-body">
+      <div class="comments-modal-body">
         @for (comment of selectedPost?.comments; track $index) {
         <div class="comment">
           <img [src]="comment.userAvatar" alt="Avatar" class="comment-avatar" />
@@ -69,3 +72,52 @@
     </div>
   </div>
 </section>
+
+@if (showPostOptions){
+<div class="new-post-modal-container">
+  <div class="blur-background"></div>
+  <div class="new-post-modal-content">
+    <div class="new-post-button-wrapper">
+      <button class="new-post-option-button" routerLink="/new-post">
+        <img
+          src="/icons/home/films-tvShows.png"
+          alt="Films / TV shows"
+          class="new-post-option-img"
+        />
+      </button>
+      <span class="new-post-button-name">Films / TV shows</span>
+    </div>
+    <div class="new-post-button-wrapper">
+      <button class="new-post-option-button">
+        <img
+          src="/icons/home/games.png"
+          alt="Games"
+          class="new-post-option-img"
+        />
+      </button>
+      <span class="new-post-button-name">Games</span>
+    </div>
+    <div class="new-post-button-wrapper">
+      <button class="new-post-option-button">
+        <img
+          src="/icons/home/books.png"
+          alt="Books"
+          class="new-post-option-img"
+        />
+      </button>
+      <span class="new-post-button-name">Books</span>
+    </div>
+    <div class="new-post-button-wrapper">
+      <button class="new-post-option-button">
+        <img
+          src="/icons/home/music.png"
+          alt="Music"
+          class="new-post-option-img"
+        />
+      </button>
+      <span class="new-post-button-name">Music</span>
+    </div>
+  </div>
+</div>
+
+}

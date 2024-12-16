@@ -10,4 +10,10 @@ import { RouterLink } from '@angular/router';
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
 })
-export class HomePageComponent {}
+export class HomePageComponent {
+  showPostOptions: boolean = false;
+
+  onPostOptions(showPostOptions: boolean) {
+    this.showPostOptions = showPostOptions;
+  }
+}
