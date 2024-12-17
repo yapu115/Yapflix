@@ -13,7 +13,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   return authService.checkSignIn().pipe(
     map((response: any) => {
       const { iat, exp, ...user } = response.user;
-      const loggedUser = new User(user.username, user.id);
+      const loggedUser = new User(user.id, user.username);
       userService.updateUser(loggedUser);
       return true;
     }),

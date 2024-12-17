@@ -10,14 +10,13 @@
 .preview-carousel {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: #1d0e32;
   padding: 2rem;
   border-radius: 8px;
-  width: 90%;
-  max-width: 600px;
+  width: 70%;
   margin: 0 auto;
-  align-items: center;
-  justify-content: center;
 }
 
 .carousel-container {
@@ -96,10 +95,15 @@
   object-fit: cover;
 }
 
+.description-input {
+  margin: 0 auto;
+  align-items: center;
+  width: 100%;
+}
 .description {
   width: 100%;
-  /* min-height: 100px; */
-  padding: 1rem;
+  min-height: 6rem;
+  padding: 1rem 0.2rem;
   font-size: 1rem;
   color: #ffffff;
   background-color: #2a2a2e;
@@ -122,7 +126,19 @@
   background-color: #1d1d21;
 }
 
-.upload-img {
+@media (min-width: 760px) {
+  .preview-carousel {
+    width: 90%;
+    max-width: 600px;
+  }
+
+  .description-input {
+    width: 80%;
+  }
+}
+
+.upload-img,
+.post-btn {
   background-color: #5c27d7;
   color: #ffffff;
   font-size: 1rem;
@@ -133,17 +149,24 @@
   transition: all 0.3s ease;
 }
 
-.upload-img:hover {
+.upload-img:hover,
+.post-btn:hover {
   background-color: #4a1fb3;
   transform: scale(1.05);
 }
 
-.upload-img:active {
+.upload-img:active,
+.post-btn:active {
   background-color: #3a168d;
   transform: scale(0.95);
 }
 
-.upload-img:focus {
+.upload-img:focus,
+.post-btn:focus {
   outline: 2px solid #9d79ff;
   outline-offset: 2px;
+}
+
+.post-btn {
+  margin-top: 1rem;
 }

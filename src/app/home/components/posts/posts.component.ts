@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { HomeService } from '../../services/home.service';
+import { catchError, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-posts',
@@ -75,8 +77,28 @@ export class PostsComponent {
 
   currentIndex: number[] = [];
 
-  constructor() {
+  constructor(protected homeService: HomeService) {
     this.currentIndex = this.posts.map(() => 0);
+    homeService.getAllPosts().subscribe({
+      next: (posts: any) => {
+        console.log('User logged successfully:', posts);
+        // this.posts.push();
+      },
+
+      error: (err) => {},
+    });
+
+    // .pipe(
+    //   map((posts: any) => {
+    //     console.log(posts);
+    //     this.posts.push(...posts);
+    //   }),
+    //   catchError((err) => {
+    //     console.log(err);
+    //     return of(false);
+    //   })
+    // );
+    // console.log(this.posts);
   }
 
   nextImage(postIndex: number) {

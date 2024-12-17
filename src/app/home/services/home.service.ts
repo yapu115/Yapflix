@@ -1,9 +1,22 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HomeService {
+  private apiUrl = 'http://localhost:3000';
 
-  constructor() { }
+  constructor(private http: HttpClient, protected router: Router) {}
+
+  sendPost(postData: any) {
+    return this.http.post(`${this.apiUrl}/posts/create`, postData);
+  }
+
+  getAllPosts() {
+    return this.http.get(`${this.apiUrl}/posts/read`, {
+      withCredentials: true,
+    });
+  }
 }

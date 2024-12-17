@@ -18,6 +18,10 @@ export class UserService {
     return this.user?.Username;
   }
 
+  getUserId() {
+    return this.user?.Id;
+  }
+
   updateUser(updatedUser: User) {
     this.user = updatedUser;
   }
