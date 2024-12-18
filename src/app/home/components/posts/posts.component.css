@@ -196,12 +196,16 @@
   font-size: 1.2rem;
 }
 
-.comments-modal-header .close {
+.comments-modal-close {
   background: transparent;
   border: none;
   color: #fff;
-  font-size: 1.5rem;
+  width: 2rem;
   cursor: pointer;
+}
+
+.comments-modal-close img {
+  width: 100%;
 }
 
 .comments-modal-body {
@@ -213,9 +217,10 @@
 .comment {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 1rem;
-  border-bottom: 2px #8c8c8c solid;
-  padding-bottom: 0.8rem;
+  margin-bottom: 1.2rem;
+  margin-top: 0.4rem;
+  /* border-bottom: 2px #8c8c8c solid; */
+  padding-bottom: 0.5rem;
 }
 
 .comment-avatar {
@@ -246,6 +251,63 @@
   color: #ccc;
   margin-top: 0.3rem;
 }
+
+.comments-modal-footer {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+.comment-input {
+  flex: 1;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  outline: none;
+  color: #ffffff;
+  background-color: #2a2a2e;
+  border: 2px solid #6a1b9a;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.comment-input:focus {
+  border-color: #9c27b0;
+  box-shadow: 0 0 8px rgba(156, 39, 176, 0.5);
+  background-color: #1d1d21;
+}
+
+.comment-submit {
+
+  background-color: #5c27d7;
+  color: #ffffff;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+.comment-submit:hover {
+  background-color: #4a1fb3;
+  transform: scale(1.05);
+}
+
+.comment-submit:active {
+  background-color: #3a168d;
+  transform: scale(0.95);
+}
+
+.comment-submit:focus {
+  outline: 2px solid #9d79ff;
+  outline-offset: 2px;
+}
+
 
 /* New post modal */
 
@@ -336,7 +398,6 @@
   text-align: center;
 }
 
-/* Animaciones */
 @keyframes modalEnter {
   from {
     opacity: 0;

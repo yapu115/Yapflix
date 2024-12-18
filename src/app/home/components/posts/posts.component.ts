@@ -4,11 +4,13 @@ import { RouterLink } from '@angular/router';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { HomeService } from '../../services/home.service';
 import { catchError, map, of } from 'rxjs';
+import { UserService } from '../../../services/user.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-posts',
   standalone: true,
-  imports: [SlickCarouselModule, CommonModule, RouterLink],
+  imports: [SlickCarouselModule, CommonModule, RouterLink, FormsModule],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.css',
   schemas: [],
@@ -16,11 +18,15 @@ import { catchError, map, of } from 'rxjs';
 export class PostsComponent {
   @Input() showPostOptions: boolean = false;
 
-  posts = [
+  ////////////////////
+  newComment: string = '';
+  ///////////////////
+
+  posts: any = [
     {
       username: 'Allen the alien',
       userAvatar: '/imgs/tests/posts/2-Allen.jpg',
-      images: [
+      pictures: [
         '/imgs/tests/posts/2-videogame.jpg',
         '/imgs/tests/posts/2-pic2.jpg',
         '/imgs/tests/posts/2-pic3.jpg',
@@ -34,77 +40,42 @@ export class PostsComponent {
         {
           user: 'Mark grayson',
           userAvatar: '/imgs/tests/posts/1-mark.jpg',
-          message: 'This is a comment',
+          content: 'This is a comment',
           date: new Date('2024-12-01T15:00:00'),
         },
         {
           user: 'Mark grayson',
           userAvatar: '/imgs/tests/posts/1-mark.jpg',
-          message: 'This is a comment',
+          content: 'This is a comment',
           date: new Date('2024-12-01T15:10:00'),
         },
-      ],
-    },
-    {
-      username: 'Mark Grayson',
-      userAvatar: '/imgs/tests/posts/1-mark.jpg',
-      images: [
-        '/imgs/tests/posts/1-movie.jpg',
-        '/imgs/tests/posts/1-pic2.jpg',
-        '/imgs/tests/posts/1-pic3.jpg',
-        '/imgs/tests/posts/1-pic4.jpg',
-      ],
-    },
-    {
-      username: 'Omniman115',
-      userAvatar: '/imgs/tests/posts/4-omniman.jpg',
-      images: [
-        '/imgs/tests/posts/4-album.jpg',
-        '/imgs/tests/posts/4-pic1.jpg',
-        '/imgs/tests/posts/4-pic2.jpg',
-      ],
-    },
-    {
-      username: 'EveA',
-      userAvatar: '/imgs/tests/posts/3-atom_Eve.jpg',
-      images: [
-        '/imgs/tests/posts/3-book.jpg',
-        '/imgs/tests/posts/3-pic2.png',
-        '/imgs/tests/posts/3-pic3.jpg',
       ],
     },
   ];
 
   currentIndex: number[] = [];
+  userId: string | any;
 
-  constructor(protected homeService: HomeService) {
+  constructor(protected homeService: HomeService, protected userService: UserService) {
+    this.userId = this.userService.getUserId()
     this.currentIndex = this.posts.map(() => 0);
     homeService.getAllPosts().subscribe({
       next: (posts: any) => {
-        console.log('User logged successfully:', posts);
+        console.log('posts:', posts);
         // this.posts.push();
+        this.posts.push(...posts)
+        console.log(posts)
       },
 
       error: (err) => {},
     });
-
-    // .pipe(
-    //   map((posts: any) => {
-    //     console.log(posts);
-    //     this.posts.push(...posts);
-    //   }),
-    //   catchError((err) => {
-    //     console.log(err);
-    //     return of(false);
-    //   })
-    // );
-    // console.log(this.posts);
   }
+
 
   nextImage(postIndex: number) {
     if (
       this.currentIndex[postIndex] <
-      this.posts[postIndex].images.length - 1
+      this.posts[postIndex].pictures.length - 1
     ) {
       this.currentIndex[postIndex]++;
     } else {
@@ -116,7 +87,7 @@ export class PostsComponent {
     if (this.currentIndex[postIndex] > 0) {
       this.currentIndex[postIndex]--;
     } else {
-      this.currentIndex[postIndex] = this.posts[postIndex].images.length - 1;
+      this.currentIndex[postIndex] = this.posts[postIndex].pictures.length - 1;
     }
   }
 
@@ -143,4 +114,54 @@ export class PostsComponent {
     };
     return new Intl.DateTimeFormat('es-ES', options).format(new Date(date));
   }
+
+  likePost(post: any){
+
+    this.homeService.sendLike(post.id, this.userId).subscribe({
+      next: (result: any) => {
+        const message = result.message
+        if (message === "Post liked"){
+          post.likes ++;
+        }
+        else{
+          post.likes --;
+        }
+
+      },
+
+      error: (err) => {},
+    })
+  }
+
+  commentPost(post: any, content: string){
+    this.homeService.sendComment(post.id, this.userId, content).subscribe({
+      next: (result: any) => {
+      console.log(result)        
+
+      this.selectedPost.comments.push(result)
+      },
+
+      error: (err) => {},
+    })
+  }
+
+  
+  ////////////////////
+  addComment(): void {
+    if (!this.selectedPost) return;
+  
+    const newCommentObject = {
+      user: 'UsuarioActual', 
+      userAvatar: '/imgs/defaults/avatar.png', 
+      date: new Date(),
+      message: this.newComment.trim(),
+    };
+  
+    // Agrega el comentario al post seleccionado
+    this.selectedPost.comments.push(newCommentObject);
+  
+    // Reinicia el campo del comentario
+    this.newComment = '';
+  }
+  ///////////////////
 }

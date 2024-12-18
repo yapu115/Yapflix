@@ -3,7 +3,13 @@
   <div class="post">
     <div class="post-header">
       <div class="user-info">
-        <img [src]="post.userAvatar" alt="Avatar" class="avatar" />
+        @if (post.userAvatar){
+          <img [src]="post.userAvatar" alt="Avatar" class="avatar" />
+        }
+        @else {
+          <img src="/imgs/defaults/default_avatar.png" alt="Avatar" class="avatar" />
+
+        }
         <span class="username">{{ post.username }}</span>
       </div>
       <span class="post-date">{{ post.date | date : "shortDate" }}</span>
@@ -11,7 +17,7 @@
     <div class="post-content">
       <div class="carousel-container">
         <div class="carousel" [style.transform]="getCarouselTransform($index)">
-          @for (image of post.images; track $index) {
+          @for (image of post.pictures; track $index) {
           <div class="carousel-item">
             <img [src]="image" alt="Imagen del post" class="carousel-image" />
           </div>
@@ -25,11 +31,11 @@
     <div class="post-footer">
       <div class="icon-container">
         <div class="likes-container">
-          <i class="fa fa-heart"></i>
+            <i class="fa fa-heart" (click)="likePost(post)"></i>
           <span class="like-counter">{{ post.likes }} likes</span>
         </div>
-        <div class="comment-container">
-          <i class="fa fa-comment" (click)="openComments(post)"></i>
+        <div class="comment-container" (click)="openComments(post)">
+          <i class="fa fa-comment" ></i>
           <span class="comment-counter"
             >{{ post.comments?.length }} comments</span
           >
@@ -55,19 +61,38 @@
     <div class="comments-modal-content" (click)="$event.stopPropagation()">
       <div class="comments-modal-header">
         <h3>Comments</h3>
-        <button class="comments-modal-close" (click)="closeModal()">X</button>
+        <button class="comments-modal-close" (click)="closeModal()"><img src="/imgs/defaults/close_icon.png" alt="close"></button>
       </div>
-      <div class="comments-modal-body">
+
+      <div class="comments-modal-body" >
         @for (comment of selectedPost?.comments; track $index) {
         <div class="comment">
           <img [src]="comment.userAvatar" alt="Avatar" class="comment-avatar" />
           <div class="comment-details">
             <span class="comment-username">{{ comment.user }}</span>
             <span class="comment-date">{{ formatDate(comment.date) }}</span>
-            <p class="comment-text">{{ comment.message }}</p>
+            <p class="comment-text">{{ comment.content }}</p>
           </div>
         </div>
         }
+      </div>
+
+
+      <div class="comments-modal-footer">
+        <input
+          type="text"
+          placeholder="Write a comment..."
+          class="comment-input"
+          maxlength="200"
+        [(ngModel)]="newComment"
+
+        />
+        <button
+          class="comment-submit"
+          (click)="commentPost(selectedPost, newComment)"
+        >
+          Send
+        </button>
       </div>
     </div>
   </div>

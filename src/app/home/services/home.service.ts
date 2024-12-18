@@ -19,4 +19,13 @@ export class HomeService {
       withCredentials: true,
     });
   }
+
+  sendLike(postId: string, userId: string){
+    return this.http.post(`${this.apiUrl}/posts/${postId}/like`, {userId})
+  }
+
+  sendComment(postId: string, userId: string, content: string){
+    return this.http.post(`${this.apiUrl}/posts/${postId}/comments`, {userId, content})
+
+  }
 }
