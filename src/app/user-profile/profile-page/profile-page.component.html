@@ -1,7 +1,10 @@
 <section class="profile-page">
-  <!-- Componente del Header -->
-  <app-header [user]="user"></app-header>
+  <app-header
+    [user]="user"
+    [followers]="followers"
+    [following]="following"
+    [postsCount]="userPosts.length"
+  ></app-header>
 
-  <!-- Componente de los Posts -->
-  <app-posts [postsData]="user.postsData"></app-posts>
+  <app-posts [userPosts]="userPosts"></app-posts>
 </section>

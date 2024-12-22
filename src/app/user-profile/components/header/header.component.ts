@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -9,6 +9,7 @@ import { Component, Input } from '@angular/core';
 })
 export class HeaderComponent {
   @Input() user!: {
+    id: string;
     avatar: string;
     username: string;
     bio: string;
@@ -16,4 +17,18 @@ export class HeaderComponent {
     followers: number;
     following: number;
   };
+
+  @Input() followers!: {
+    id: string;
+    username: string;
+    avatar: string;
+  }[];
+
+  @Input() following!: {
+    id: string;
+    username: string;
+    avatar: string;
+  }[];
+
+  @Input() postsCount!: number;
 }

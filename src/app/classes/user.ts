@@ -1,12 +1,12 @@
 export class User {
   private username: string;
   private id: string;
-  private profilePicture: string;
+  private avatar: string;
 
-  constructor(id: string, username: string, profilePicture: string = '') {
+  constructor(id: string, username: string, avatar: string = '') {
     this.id = id;
     this.username = username;
-    this.profilePicture = profilePicture;
+    this.avatar = avatar;
   }
 
   get Username() {

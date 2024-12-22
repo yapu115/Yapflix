@@ -20,12 +20,14 @@ export class HomeService {
     });
   }
 
-  sendLike(postId: string, userId: string){
-    return this.http.post(`${this.apiUrl}/posts/${postId}/like`, {userId})
+  sendLike(postId: string, userId: string) {
+    return this.http.post(`${this.apiUrl}/posts/${postId}/like`, { userId });
   }
 
-  sendComment(postId: string, userId: string, content: string){
-    return this.http.post(`${this.apiUrl}/posts/${postId}/comments`, {userId, content})
-
+  sendComment(postId: string, userId: string, content: string) {
+    return this.http.post(`${this.apiUrl}/posts/${postId}/comments`, {
+      userId,
+      content,
+    });
   }
 }

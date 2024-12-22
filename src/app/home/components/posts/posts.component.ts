@@ -3,7 +3,6 @@ import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { HomeService } from '../../services/home.service';
-import { catchError, map, of } from 'rxjs';
 import { UserService } from '../../../services/user.service';
 import { FormsModule } from '@angular/forms';
 
@@ -22,15 +21,30 @@ export class PostsComponent {
   newComment: string = '';
   ///////////////////
 
+  currentIndex: number[] = [];
+  userId: string | any;
+
   posts: any = [
     {
       username: 'Allen the alien',
       userAvatar: '/imgs/tests/posts/2-Allen.jpg',
       pictures: [
-        '/imgs/tests/posts/2-videogame.jpg',
-        '/imgs/tests/posts/2-pic2.jpg',
-        '/imgs/tests/posts/2-pic3.jpg',
-        '/imgs/tests/posts/2-pic4.jpg',
+        {
+          url: '/imgs/tests/posts/2-videogame.jpg',
+          order: 1,
+        },
+        {
+          url: '/imgs/tests/posts/2-pic2.jpg',
+          order: 2,
+        },
+        {
+          url: '/imgs/tests/posts/2-pic3.jpg',
+          order: 3,
+        },
+        {
+          url: '/imgs/tests/posts/2-pic4.jpg',
+          order: 4,
+        },
       ],
       message:
         'We can’t thank you enough for all the love and support you’ve shown us this year 🥹You’ve made 2024 unforgettable, and we’re so ready to make 2025 even bigger and better ❤️‍🔥',
@@ -38,13 +52,13 @@ export class PostsComponent {
       date: new Date(),
       comments: [
         {
-          user: 'Mark grayson',
+          username: 'Mark grayson',
           userAvatar: '/imgs/tests/posts/1-mark.jpg',
           content: 'This is a comment',
           date: new Date('2024-12-01T15:00:00'),
         },
         {
-          user: 'Mark grayson',
+          username: 'Mark grayson',
           userAvatar: '/imgs/tests/posts/1-mark.jpg',
           content: 'This is a comment',
           date: new Date('2024-12-01T15:10:00'),
@@ -53,24 +67,20 @@ export class PostsComponent {
     },
   ];
 
-  currentIndex: number[] = [];
-  userId: string | any;
-
-  constructor(protected homeService: HomeService, protected userService: UserService) {
-    this.userId = this.userService.getUserId()
-    this.currentIndex = this.posts.map(() => 0);
+  constructor(
+    protected homeService: HomeService,
+    protected userService: UserService
+  ) {
+    this.userId = this.userService.getUserId();
     homeService.getAllPosts().subscribe({
       next: (posts: any) => {
-        console.log('posts:', posts);
-        // this.posts.push();
-        this.posts.push(...posts)
-        console.log(posts)
+        this.posts.push(...posts);
+        this.currentIndex = this.posts.map(() => 0);
       },
 
       error: (err) => {},
     });
   }
-
 
   nextImage(postIndex: number) {
     if (
@@ -115,51 +125,47 @@ export class PostsComponent {
     return new Intl.DateTimeFormat('es-ES', options).format(new Date(date));
   }
 
-  likePost(post: any){
-
+  likePost(post: any) {
     this.homeService.sendLike(post.id, this.userId).subscribe({
       next: (result: any) => {
-        const message = result.message
-        if (message === "Post liked"){
-          post.likes ++;
+        const message = result.message;
+        if (message === 'Post liked') {
+          post.likes++;
+        } else {
+          post.likes--;
         }
-        else{
-          post.likes --;
-        }
-
       },
 
       error: (err) => {},
-    })
+    });
   }
 
-  commentPost(post: any, content: string){
+  commentPost(post: any, content: string) {
     this.homeService.sendComment(post.id, this.userId, content).subscribe({
       next: (result: any) => {
-      console.log(result)        
+        console.log(result);
 
-      this.selectedPost.comments.push(result)
+        this.selectedPost.comments.push(result);
       },
 
       error: (err) => {},
-    })
+    });
   }
 
-  
   ////////////////////
   addComment(): void {
     if (!this.selectedPost) return;
-  
+
     const newCommentObject = {
-      user: 'UsuarioActual', 
-      userAvatar: '/imgs/defaults/avatar.png', 
+      user: 'UsuarioActual',
+      userAvatar: '/imgs/defaults/avatar.png',
       date: new Date(),
       message: this.newComment.trim(),
     };
-  
+
     // Agrega el comentario al post seleccionado
     this.selectedPost.comments.push(newCommentObject);
-  
+
     // Reinicia el campo del comentario
     this.newComment = '';
   }

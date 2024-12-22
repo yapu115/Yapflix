@@ -8,5 +8,17 @@ import { Component, Input } from '@angular/core';
   styleUrl: './posts.component.css',
 })
 export class PostsComponent {
-  @Input() postsData!: { image: string; likes: number; comments: number }[];
+  @Input() userPosts!: {
+    pictures: any;
+    message: string;
+    likes: number;
+    date: Date;
+    comments: any[];
+  }[];
+
+  constructor() {}
+
+  showPost(post: any) {
+    console.log(post);
+  }
 }
