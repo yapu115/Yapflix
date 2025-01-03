@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Query } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { HomeService } from '../../services/home.service';
@@ -17,13 +17,19 @@ import { FormsModule } from '@angular/forms';
 export class PostsComponent {
   @Input() showPostOptions: boolean = false;
 
-  ////////////////////
   newComment: string = '';
-  ///////////////////
   selectedPost: any;
 
   currentIndex: number[] = [];
   userId: string | any;
+
+  // search
+  activateSearch = false;
+  searchQuery: string = '';
+  mediaType: string = '';
+
+  movies: any = [];
+  filteredMovies = [...this.movies];
 
   posts: any = [
     {
@@ -154,18 +160,26 @@ export class PostsComponent {
     });
   }
 
-  addComment(): void {
-    if (!this.selectedPost) return;
+  // api
 
-    const newCommentObject = {
-      user: 'UsuarioActual',
-      userAvatar: '/imgs/defaults/avatar.png',
-      date: new Date(),
-      message: this.newComment.trim(),
-    };
+  searchMedia(media: string) {
+    this.activateSearch = true;
+    this.mediaType = media;
+  }
 
-    this.selectedPost.comments.push(newCommentObject);
+  onSearch(): void {
+    this.homeService.searchMovie(this.searchQuery).subscribe({
+      next: (result: any) => {
+        console.log(result.results);
+        this.filteredMovies = result.results;
+      },
 
-    this.newComment = '';
+      error: (err) => {
+        console.log(err);
+      },
+    });
+    // this.filteredMovies = this.movies.filter((movie: any) =>
+    //   movie.title.toLowerCase().includes(query)
+    // );
   }
 }

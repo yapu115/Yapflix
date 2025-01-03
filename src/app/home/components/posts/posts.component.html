@@ -111,9 +111,45 @@
 @if (showPostOptions){
 <div class="new-post-modal-container">
   <div class="blur-background"></div>
+
+  @if (activateSearch){
+  <div class="search-container">
+    <!-- Search Input -->
+    <div class="search-input-wrapper">
+      <input
+        type="text"
+        placeholder="Search movies..."
+        class="search-input"
+        [(ngModel)]="searchQuery"
+        (keydown.enter)="onSearch()"
+      />
+    </div>
+
+    <!-- Search Results  -->
+    <div class="search-results">
+      @for (movie of filteredMovies; track $index) { @if (movie.poster_path){
+      <div class="search-result-item">
+        <img
+          src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}"
+          alt="search item image"
+          class="item-image"
+        />
+        <div class="item-info">
+          <h3 class="item-title">{{ movie.title }}</h3>
+          <p class="item-date">
+            ({{ movie.release_date | date : "dd/MM/yyyy" }})
+          </p>
+        </div>
+      </div>
+
+      } }
+    </div>
+  </div>
+  } @else {
+
   <div class="new-post-modal-content">
     <div class="new-post-button-wrapper">
-      <button class="new-post-option-button" routerLink="/new-post">
+      <button class="new-post-option-button" (click)="searchMedia('movies')">
         <img
           src="/icons/home/films-tvShows.png"
           alt="Films / TV shows"
@@ -153,6 +189,7 @@
       <span class="new-post-button-name">Music</span>
     </div>
   </div>
+  }
 </div>
 
 }

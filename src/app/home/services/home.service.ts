@@ -30,4 +30,8 @@ export class HomeService {
       content,
     });
   }
+
+  searchMovie(query: string) {
+    return this.http.get(`${this.apiUrl}/apis/movies?query=${query}`);
+  }
 }
