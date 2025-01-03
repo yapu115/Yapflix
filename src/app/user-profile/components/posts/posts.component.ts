@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { UserProfileService } from '../../services/user-profile.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-posts',
@@ -16,9 +18,13 @@ export class PostsComponent {
     comments: any[];
   }[];
 
-  constructor() {}
+  constructor(
+    protected userProfileService: UserProfileService,
+    protected router: Router
+  ) {}
 
   showPost(post: any) {
-    console.log(post);
+    this.userProfileService.setSelectedPost(post);
+    this.router.navigateByUrl('/post-view');
   }
 }

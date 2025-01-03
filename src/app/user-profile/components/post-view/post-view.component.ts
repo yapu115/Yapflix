@@ -1,94 +1,74 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { SlickCarouselModule } from 'ngx-slick-carousel';
-import { HomeService } from '../../services/home.service';
+import { Component } from '@angular/core';
+import { UserProfileService } from '../../services/user-profile.service';
 import { UserService } from '../../../services/user.service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { HomeService } from '../../../home/services/home.service';
 
 @Component({
-  selector: 'app-posts',
+  selector: 'app-post-view',
   standalone: true,
-  imports: [SlickCarouselModule, CommonModule, RouterLink, FormsModule],
-  templateUrl: './posts.component.html',
-  styleUrl: './posts.component.css',
-  schemas: [],
+  imports: [FormsModule, CommonModule],
+  templateUrl: './post-view.component.html',
+  styleUrl: './post-view.component.css',
 })
-export class PostsComponent {
-  @Input() showPostOptions: boolean = false;
+export class PostViewComponent {
+  userPosts: any[] = [];
+  selectedPostIndex: number = 0;
 
-  ////////////////////
   newComment: string = '';
-  ///////////////////
   selectedPost: any;
 
   currentIndex: number[] = [];
   userId: string | any;
 
-  posts: any = [
-    {
-      username: 'Allen the alien',
-      userAvatar: '/imgs/tests/posts/2-Allen.jpg',
-      pictures: [
-        {
-          url: '/imgs/tests/posts/2-videogame.jpg',
-          order: 1,
-        },
-        {
-          url: '/imgs/tests/posts/2-pic2.jpg',
-          order: 2,
-        },
-        {
-          url: '/imgs/tests/posts/2-pic3.jpg',
-          order: 3,
-        },
-        {
-          url: '/imgs/tests/posts/2-pic4.jpg',
-          order: 4,
-        },
-      ],
-      message:
-        'We can’t thank you enough for all the love and support you’ve shown us this year 🥹You’ve made 2024 unforgettable, and we’re so ready to make 2025 even bigger and better ❤️‍🔥',
-      likes: 22,
-      date: new Date(),
-      comments: [
-        {
-          username: 'Mark grayson',
-          userAvatar: '/imgs/tests/posts/1-mark.jpg',
-          content: 'This is a comment',
-          date: new Date('2024-12-01T15:00:00'),
-        },
-        {
-          username: 'Mark grayson',
-          userAvatar: '/imgs/tests/posts/1-mark.jpg',
-          content: 'This is a comment',
-          date: new Date('2024-12-01T15:10:00'),
-        },
-      ],
-    },
-  ];
+  activePostIndex = 0;
+
+  user: any;
 
   constructor(
+    protected userProfileService: UserProfileService,
     protected homeService: HomeService,
     protected userService: UserService
   ) {
+    this.user = this.userService.getUser();
     this.userId = this.userService.getUserId();
-    homeService.getAllPosts().subscribe({
-      next: (posts: any) => {
-        this.posts.push(...posts);
-        this.currentIndex = this.posts.map(() => 0);
+    this.getPosts();
+  }
+
+  getPosts() {
+    console.log(this.userId);
+    this.userProfileService.getAllPosts(this.userId).subscribe({
+      next: (response: any) => {
+        this.userPosts = response;
+        this.selectedPostIndex = this.userProfileService.getSelectedPost();
+        this.currentIndex = this.userPosts.map(() => 0);
+
+        setTimeout(() => {
+          this.scrollToSelectedPost();
+        }, 100);
       },
 
-      error: (err) => {},
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
 
-  activePostIndex = 0;
+  scrollToSelectedPost(): void {
+    const targetElement = document.getElementById(
+      this.selectedPostIndex.toString()
+    );
+
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 
   nextImage(postIndex: number) {
     if (
       this.currentIndex[postIndex] <
-      this.posts[postIndex].pictures.length - 1
+      this.userPosts[postIndex].pictures.length - 1
     ) {
       this.currentIndex[postIndex]++;
     } else {
@@ -100,7 +80,8 @@ export class PostsComponent {
     if (this.currentIndex[postIndex] > 0) {
       this.currentIndex[postIndex]--;
     } else {
-      this.currentIndex[postIndex] = this.posts[postIndex].pictures.length - 1;
+      this.currentIndex[postIndex] =
+        this.userPosts[postIndex].pictures.length - 1;
     }
   }
 

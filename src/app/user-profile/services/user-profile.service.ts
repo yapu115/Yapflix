@@ -7,8 +7,16 @@ import { Router } from '@angular/router';
 })
 export class UserProfileService {
   private apiUrl = 'http://localhost:3000';
+  private selectedPost: any = null;
 
   constructor(private http: HttpClient, protected router: Router) {}
+
+  getSelectedPost() {
+    return this.selectedPost;
+  }
+  setSelectedPost(post: any) {
+    this.selectedPost = post;
+  }
 
   getAllPosts(userId: string) {
     return this.http.get(`${this.apiUrl}/posts/read/${userId}/user`, {
@@ -22,5 +30,16 @@ export class UserProfileService {
 
   getFollowing(userId: string) {
     return this.http.get(`${this.apiUrl}/users/${userId}/following`);
+  }
+
+  sendLike(postId: string, userId: string) {
+    return this.http.post(`${this.apiUrl}/posts/${postId}/like`, { userId });
+  }
+
+  sendComment(postId: string, userId: string, content: string) {
+    return this.http.post(`${this.apiUrl}/posts/${postId}/comments`, {
+      userId,
+      content,
+    });
   }
 }

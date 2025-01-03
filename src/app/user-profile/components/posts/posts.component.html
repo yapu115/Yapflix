@@ -1,8 +1,7 @@
 <section class="profile-posts">
-  <h2 class="section-title">Posts</h2>
   <div class="posts-container">
     @for (post of userPosts; track $index) {
-    <div class="post-card" (click)="showPost(post)">
+    <div class="post-card" (click)="showPost($index)">
       <img [src]="post.pictures[0].url" alt="Post Image" class="post-image" />
     </div>
     }

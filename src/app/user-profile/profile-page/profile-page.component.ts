@@ -6,11 +6,12 @@ import { User } from '../../classes/user';
 import { HomeService } from '../../home/services/home.service';
 import { UserProfileService } from '../services/user-profile.service';
 import { Router } from '@angular/router';
+import { PostViewComponent } from '../components/post-view/post-view.component';
 
 @Component({
   selector: 'app-profile-page',
   standalone: true,
-  imports: [HeaderComponent, PostsComponent],
+  imports: [HeaderComponent, PostsComponent, PostViewComponent],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.css',
 })

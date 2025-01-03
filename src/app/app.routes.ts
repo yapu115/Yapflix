@@ -58,6 +58,15 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'post-view',
+    loadComponent: () =>
+      import('./user-profile/components/post-view/post-view.component').then(
+        (m) => m.PostViewComponent
+      ),
+    canActivate: [authGuard],
+  },
+
+  {
     path: 'notifications',
     loadComponent: () =>
       import('./notifications/notifications.component').then(
