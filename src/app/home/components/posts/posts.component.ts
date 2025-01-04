@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Query } from '@angular/core';
+import { Component, Input, Query, SimpleChanges } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { HomeService } from '../../services/home.service';
 import { UserService } from '../../../services/user.service';
 import { FormsModule } from '@angular/forms';
+import { Media } from '../../../classes/media';
 
 @Component({
   selector: 'app-posts',
@@ -28,8 +29,8 @@ export class PostsComponent {
   searchQuery: string = '';
   mediaType: string = '';
 
-  movies: any = [];
-  filteredMovies = [...this.movies];
+  mediaList: any = [];
+  filteredMedia = [...this.mediaList];
 
   posts: any = [
     {
@@ -89,7 +90,16 @@ export class PostsComponent {
     });
   }
 
-  activePostIndex = 0;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['showPostOptions']) {
+      const currentValue = changes['showPostOptions'].currentValue;
+      if (!currentValue) {
+        this.activateSearch = currentValue;
+        this.searchQuery = '';
+        this.filteredMedia = [];
+      }
+    }
+  }
 
   nextImage(postIndex: number) {
     if (
@@ -160,7 +170,7 @@ export class PostsComponent {
     });
   }
 
-  // api
+  // apis
 
   searchMedia(media: string) {
     this.activateSearch = true;
@@ -168,18 +178,43 @@ export class PostsComponent {
   }
 
   onSearch(): void {
-    this.homeService.searchMovie(this.searchQuery).subscribe({
+    this.homeService.searchMedia(this.searchQuery, this.mediaType).subscribe({
       next: (result: any) => {
-        console.log(result.results);
-        this.filteredMovies = result.results;
+        console.log(result);
+
+        if (result.results) {
+          this.filteredMedia = result.results
+            .filter((item: any) => item.poster_path)
+            .map((item: any) => {
+              return new Media(
+                item.title,
+                `https://image.tmdb.org/t/p/w500${item.poster_path}`,
+                { releaseDate: item.release_date }
+              );
+            });
+        } else if (result.data) {
+          this.filteredMedia = result.data.map((item: any) => {
+            return new Media(item.title, item.album.cover_big, {
+              author: item.artist.name,
+            });
+          });
+        } else if (result.items) {
+          this.filteredMedia = result.items.map((item: any) => {
+            console.log(item.volumeInfo);
+            return new Media(
+              item.volumeInfo.title,
+              item.volumeInfo.imageLinks.thumbnail,
+              {
+                author: item.volumeInfo.authors,
+              }
+            );
+          });
+        }
       },
 
       error: (err) => {
         console.log(err);
       },
     });
-    // this.filteredMovies = this.movies.filter((movie: any) =>
-    //   movie.title.toLowerCase().includes(query)
-    // );
   }
 }

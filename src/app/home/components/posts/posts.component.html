@@ -127,18 +127,23 @@
 
     <!-- Search Results  -->
     <div class="search-results">
-      @for (movie of filteredMovies; track $index) { @if (movie.poster_path){
+      @for (media of filteredMedia; track $index) { @if (media.image){
       <div class="search-result-item">
         <img
-          src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}"
+          src="{{ media.image }}"
           alt="search item image"
           class="item-image"
         />
+
         <div class="item-info">
-          <h3 class="item-title">{{ movie.title }}</h3>
+          <h3 class="item-title">{{ media.title }}</h3>
+          @if (media.releaseDate){
           <p class="item-date">
-            ({{ movie.release_date | date : "dd/MM/yyyy" }})
+            ({{ media.releaseDate | date : "dd/MM/yyyy" }})
           </p>
+          } @else {
+          <p class="item-author">({{ media.author }})</p>
+          }
         </div>
       </div>
 
@@ -159,7 +164,7 @@
       <span class="new-post-button-name">Films / TV shows</span>
     </div>
     <div class="new-post-button-wrapper">
-      <button class="new-post-option-button">
+      <button class="new-post-option-button" (click)="searchMedia('games')">
         <img
           src="/icons/home/games.png"
           alt="Games"
@@ -169,7 +174,7 @@
       <span class="new-post-button-name">Games</span>
     </div>
     <div class="new-post-button-wrapper">
-      <button class="new-post-option-button">
+      <button class="new-post-option-button" (click)="searchMedia('books')">
         <img
           src="/icons/home/books.png"
           alt="Books"
@@ -179,7 +184,7 @@
       <span class="new-post-button-name">Books</span>
     </div>
     <div class="new-post-button-wrapper">
-      <button class="new-post-option-button">
+      <button class="new-post-option-button" (click)="searchMedia('music')">
         <img
           src="/icons/home/music.png"
           alt="Music"

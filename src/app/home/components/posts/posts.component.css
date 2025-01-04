@@ -505,7 +505,8 @@
   color: #fff;
 }
 
-.item-date {
+.item-date,
+.item-author {
   font-size: 14px;
   color: #aaa;
   margin: 0;

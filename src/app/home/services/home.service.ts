@@ -31,7 +31,28 @@ export class HomeService {
     });
   }
 
-  searchMovie(query: string) {
-    return this.http.get(`${this.apiUrl}/apis/movies?query=${query}`);
+  searchMedia(query: string, mediaType: string) {
+    let apiCall;
+
+    switch (mediaType) {
+      case 'movies':
+        apiCall = this.http.get(`${this.apiUrl}/apis/movies?query=${query}`);
+        break;
+      case 'videogames':
+        apiCall = this.http.get(
+          `${this.apiUrl}/apis/videogames?query=${query}`
+        );
+        break;
+      case 'books':
+        apiCall = this.http.get(`${this.apiUrl}/apis/books?query=${query}`);
+        break;
+      case 'music':
+        apiCall = this.http.get(`${this.apiUrl}/apis/music?query=${query}`);
+        break;
+      default:
+        throw new Error('Invalid media type');
+    }
+
+    return apiCall;
   }
 }
