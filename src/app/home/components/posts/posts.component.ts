@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Query, SimpleChanges } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { HomeService } from '../../services/home.service';
 import { UserService } from '../../../services/user.service';
@@ -77,7 +77,8 @@ export class PostsComponent {
 
   constructor(
     protected homeService: HomeService,
-    protected userService: UserService
+    protected userService: UserService,
+    protected router: Router
   ) {
     this.userId = this.userService.getUserId();
     homeService.getAllPosts().subscribe({
@@ -178,37 +179,60 @@ export class PostsComponent {
   }
 
   onSearch(): void {
+    this.filteredMedia = [];
     this.homeService.searchMedia(this.searchQuery, this.mediaType).subscribe({
       next: (result: any) => {
         console.log(result);
 
-        if (result.results) {
-          this.filteredMedia = result.results
-            .filter((item: any) => item.poster_path)
-            .map((item: any) => {
+        switch (this.mediaType) {
+          case 'movies': {
+            this.filteredMedia = result.map((item: any) => {
+              return new Media(item.title, item.image, {
+                releaseDate: item.releaseDate,
+              });
+            });
+            break;
+          }
+          case 'music': {
+            this.filteredMedia = result.data.map((item: any) => {
+              return new Media(item.title, item.album.cover_big, {
+                author: item.artist.name,
+              });
+            });
+            break;
+          }
+
+          case 'books': {
+            this.filteredMedia = result.items.map((item: any) => {
               return new Media(
-                item.title,
-                `https://image.tmdb.org/t/p/w500${item.poster_path}`,
-                { releaseDate: item.release_date }
+                item.volumeInfo.title,
+                item.volumeInfo.imageLinks?.thumbnail,
+                {
+                  author: item.volumeInfo.authors.join(', '),
+                }
               );
             });
-        } else if (result.data) {
-          this.filteredMedia = result.data.map((item: any) => {
-            return new Media(item.title, item.album.cover_big, {
-              author: item.artist.name,
-            });
-          });
-        } else if (result.items) {
-          this.filteredMedia = result.items.map((item: any) => {
-            console.log(item.volumeInfo);
-            return new Media(
-              item.volumeInfo.title,
-              item.volumeInfo.imageLinks.thumbnail,
-              {
-                author: item.volumeInfo.authors,
-              }
-            );
-          });
+            break;
+          }
+          case 'videogames': {
+            this.filteredMedia = result
+              .filter((item: any) => item.image)
+              .map((item: any) => {
+                return new Media(item.name, item.image, {
+                  releaseDate: item.releaseDate,
+                });
+              })
+              .sort((a: Media, b: Media) => {
+                const dateA = a.releaseDate
+                  ? new Date(a.releaseDate).getTime()
+                  : 0;
+                const dateB = b.releaseDate
+                  ? new Date(b.releaseDate).getTime()
+                  : 0;
+                return dateB - dateA;
+              });
+            break;
+          }
         }
       },
 
@@ -216,5 +240,10 @@ export class PostsComponent {
         console.log(err);
       },
     });
+  }
+
+  createNewPost(imageUrl: string) {
+    this.homeService.setMediaUrl(imageUrl);
+    this.router.navigateByUrl('/new-post');
   }
 }

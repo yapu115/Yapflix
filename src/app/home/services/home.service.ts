@@ -7,8 +7,23 @@ import { Router } from '@angular/router';
 })
 export class HomeService {
   private apiUrl = 'http://localhost:3000';
+  private readonly STORAGE_URL_KEY = 'savedUrl';
 
   constructor(private http: HttpClient, protected router: Router) {}
+
+  setMediaUrl(url: string): void {
+    localStorage.setItem(this.STORAGE_URL_KEY, url);
+  }
+
+  getMediaUrl(): string {
+    const imageUrl = localStorage.getItem(this.STORAGE_URL_KEY);
+    if (imageUrl) return imageUrl;
+    return 'no image found';
+  }
+
+  clearMediaUrl(): void {
+    localStorage.removeItem(this.STORAGE_URL_KEY);
+  }
 
   sendPost(postData: any) {
     return this.http.post(`${this.apiUrl}/posts/create`, postData);

@@ -128,7 +128,7 @@
     <!-- Search Results  -->
     <div class="search-results">
       @for (media of filteredMedia; track $index) { @if (media.image){
-      <div class="search-result-item">
+      <div class="search-result-item" (click)="createNewPost(media.image)">
         <img
           src="{{ media.image }}"
           alt="search item image"
@@ -138,9 +138,7 @@
         <div class="item-info">
           <h3 class="item-title">{{ media.title }}</h3>
           @if (media.releaseDate){
-          <p class="item-date">
-            ({{ media.releaseDate | date : "dd/MM/yyyy" }})
-          </p>
+          <p class="item-date">({{ media.releaseDate | date }})</p>
           } @else {
           <p class="item-author">({{ media.author }})</p>
           }
@@ -164,7 +162,10 @@
       <span class="new-post-button-name">Films / TV shows</span>
     </div>
     <div class="new-post-button-wrapper">
-      <button class="new-post-option-button" (click)="searchMedia('games')">
+      <button
+        class="new-post-option-button"
+        (click)="searchMedia('videogames')"
+      >
         <img
           src="/icons/home/games.png"
           alt="Games"

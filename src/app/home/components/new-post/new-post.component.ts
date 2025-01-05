@@ -25,6 +25,7 @@ export class NewPostComponent {
   description: string = '';
 
   userId: any;
+  urlMediaImage: string = '';
 
   // Errors
   picturesError: boolean = false;
@@ -39,6 +40,10 @@ export class NewPostComponent {
     protected router: Router
   ) {
     this.userId = userService.getUserId();
+
+    this.urlMediaImage = homeService.getMediaUrl();
+    if (this.urlMediaImage) this.images.push(this.urlMediaImage);
+    else this.router.navigateByUrl('/home');
   }
 
   triggerFileInput() {
@@ -99,10 +104,12 @@ export class NewPostComponent {
 
     postData.append('userId', this.userId);
     postData.append('message', this.description);
+    postData.append('urlMediaImage', this.urlMediaImage);
 
     this.homeService.sendPost(postData).subscribe({
       next: (response: any) => {
         console.log(response);
+        this.homeService.clearMediaUrl();
         this.router.navigateByUrl('/home');
       },
 
