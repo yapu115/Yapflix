@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +8,7 @@ export class HomeService {
   private apiUrl = 'http://localhost:3000';
   private readonly STORAGE_URL_KEY = 'savedUrl';
 
-  constructor(private http: HttpClient, protected router: Router) {}
+  constructor(private http: HttpClient) {}
 
   setMediaUrl(url: string): void {
     localStorage.setItem(this.STORAGE_URL_KEY, url);

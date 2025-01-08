@@ -1,0 +1,28 @@
+<div class="search-container">
+  <input
+    type="text"
+    class="search-bar"
+    placeholder="Search users..."
+    [(ngModel)]="searchQuery"
+    (input)="onSearch()"
+  />
+
+  @if (filteredUsers.length > 0){
+  <div class="search-results">
+    @for (user of filteredUsers; track $index) { @if (user.id !==
+    this.userService.getUserId()){
+    <div class="user-card">
+      <img [src]="user.avatar" alt="User profile" class="user-image" />
+      <div class="user-info">
+        <span class="username">{{ user.username }}</span>
+      </div>
+      <button class="follow-btn" (click)="toggleFollow(user)">
+        {{ user.isFollowing ? "Siguiendo" : "Seguir" }}
+      </button>
+    </div>
+
+    } }
+  </div>
+
+  }
+</div>

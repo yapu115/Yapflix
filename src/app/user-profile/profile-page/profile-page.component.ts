@@ -11,15 +11,15 @@ import { PostViewComponent } from '../components/post-view/post-view.component';
 @Component({
   selector: 'app-profile-page',
   standalone: true,
-  imports: [HeaderComponent, PostsComponent, PostViewComponent],
+  imports: [HeaderComponent, PostsComponent],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.css',
 })
 export class ProfilePageComponent {
   user: User | null | any;
-  userPosts: any;
-  followers: any;
-  following: any;
+  userPosts: any = [];
+  followers: any = [];
+  following: any = [];
 
   constructor(
     protected userService: UserService,

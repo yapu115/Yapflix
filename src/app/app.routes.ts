@@ -77,6 +77,15 @@ export const routes: Routes = [
   },
 
   {
+    path: 'users-search',
+    loadComponent: () =>
+      import('./users-search/users-search.component').then(
+        (m) => m.UsersSearchComponent
+      ),
+    canActivate: [authGuard],
+  },
+
+  {
     path: 'error',
     loadComponent: () =>
       import('./error/error.component').then((m) => m.ErrorComponent),
