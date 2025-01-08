@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UsersSearchService } from './services/users-search.service';
 import { UserService } from '../services/user.service';
+import { UserProfileService } from '../user-profile/services/user-profile.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users-search',
@@ -20,7 +22,9 @@ export class UsersSearchComponent {
 
   constructor(
     protected userSearchService: UsersSearchService,
-    protected userService: UserService
+    protected userService: UserService,
+    protected userProfileService: UserProfileService,
+    protected router: Router
   ) {
     this.userId = this.userService.getUserId();
     userSearchService.getAllUsers(this.userId).subscribe({
@@ -66,5 +70,11 @@ export class UsersSearchComponent {
         },
       });
     }
+  }
+
+  getUserProfile(user: any) {
+    console.log(user);
+    this.userProfileService.setSearchedUser(user);
+    this.router.navigateByUrl('/user-profile');
   }
 }

@@ -12,8 +12,13 @@
     @for (user of filteredUsers; track $index) { @if (user.id !==
     this.userService.getUserId()){
     <div class="user-card">
-      <img [src]="user.avatar" alt="User profile" class="user-image" />
-      <div class="user-info">
+      <img
+        [src]="user.avatar"
+        alt="User profile"
+        class="user-image"
+        (click)="getUserProfile(user)"
+      />
+      <div class="user-info" (click)="getUserProfile(user)">
         <span class="username">{{ user.username }}</span>
       </div>
       <button class="follow-btn" (click)="toggleFollow(user)">

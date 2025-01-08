@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from '../components/header/header.component';
 import { PostsComponent } from '../components/posts/posts.component';
 import { UserService } from '../../services/user.service';
 import { User } from '../../classes/user';
 import { HomeService } from '../../home/services/home.service';
 import { UserProfileService } from '../services/user-profile.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostViewComponent } from '../components/post-view/post-view.component';
 
 @Component({
@@ -15,7 +15,7 @@ import { PostViewComponent } from '../components/post-view/post-view.component';
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.css',
 })
-export class ProfilePageComponent {
+export class ProfilePageComponent implements OnInit {
   user: User | null | any;
   userPosts: any = [];
   followers: any = [];
@@ -25,9 +25,24 @@ export class ProfilePageComponent {
     protected userService: UserService,
     protected homeService: HomeService,
     protected userProfileService: UserProfileService,
-    protected router: Router
-  ) {
-    this.user = userService.getUser();
+    protected router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(() => {
+      this.loadData();
+    });
+
+    // this.loadData();
+  }
+
+  loadData(): void {
+    if (this.userProfileService.getSearchedUser()) {
+      this.user = this.userProfileService.getSearchedUser();
+    } else {
+      this.user = this.userService.getUser();
+    }
     this.getPosts();
     this.getFollowers();
     this.getFollowing();

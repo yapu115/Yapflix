@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,14 +8,20 @@ import { UserService } from '../../services/user.service';
 export class UserProfileService {
   private apiUrl = 'http://localhost:3000';
   private selectedPost: any = null;
-  public userProfileId: string | undefined;
+  private searchedUser: any;
 
-  constructor(
-    private http: HttpClient,
-    protected router: Router,
-    protected userService: UserService
-  ) {
-    this.userProfileId = userService.getUserId();
+  constructor(private http: HttpClient, protected router: Router) {}
+
+  getSearchedUser() {
+    return this.searchedUser;
+  }
+
+  setSearchedUser(user: any) {
+    this.searchedUser = user;
+  }
+
+  deleteSearchedUser() {
+    this.searchedUser = null;
   }
 
   getSelectedPost() {
