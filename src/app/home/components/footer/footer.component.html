@@ -1,20 +1,78 @@
 <footer class="footer" [class.active]="footerActive">
   <div class="stories">
     @for (story of stories; track $index) {
-    <div class="story">
-      <img [src]="story.image" alt="Story image" />
+    <div class="story" (click)="showStory(story)">
+      <img [src]="story.userAvatar" alt="Story image" />
       <span>{{ story.username }}</span>
     </div>
-
     }
-    <button class="add-story">Subir historia</button>
   </div>
+
+  <button class="add-story" (click)="triggerFileInput()">
+    <span>+</span>
+  </button>
+
+  <input
+    type="file"
+    #fileInput
+    accept="image/*"
+    (change)="handleFileInput($event)"
+    style="display: none"
+  />
+
+  @if (previewImage){
+  <div class="modal" (click)="closeModal($event)">
+    <div class="modal-content">
+      <img [src]="previewImage" alt="Preview" />
+      <div class="modal-buttons">
+        <button (click)="uploadStory()">Subir Historia</button>
+        <button (click)="cancelUpload()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  } @if (currentStory){
+  <div class="story-viewer">
+    <div class="progress-bar-container">
+      @for (story of currentStory.stories; track $index) {
+      <div
+        class="progress-bar"
+        [class.active]="$index <= currentStoryIndex"
+      ></div>
+      }
+    </div>
+
+    <div class="story-viewer-header">
+      <img
+        [src]="currentStory.userAvatar"
+        class="avatar-small"
+        alt="User Avatar"
+      />
+      <p>{{ currentStory.username }}</p>
+      <button class="close-button" (click)="closeStoryViewer()">×</button>
+    </div>
+
+    <div class="story-content">
+      <img
+        [src]="currentStory.stories[currentStoryIndex].media[0].url"
+        class="story-image"
+        alt="Story Image"
+      />
+    </div>
+
+    <div class="story-navigation">
+      <div class="nav-left" (click)="previousStory()"></div>
+      <div class="nav-right" (click)="nextStory()"></div>
+    </div>
+  </div>
+  }
 </footer>
 
 <button
   class="toggle-footer"
   (click)="toggleFooter()"
   [class.active]="footerActive"
+  [class.hide]="hideFooter"
 >
   <span>+</span>
 </button>

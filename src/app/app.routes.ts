@@ -17,6 +17,7 @@ export const routes: Routes = [
       ),
     canActivate: [authGuard],
   },
+
   {
     path: 'new-post',
     loadComponent: () =>

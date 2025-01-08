@@ -16,7 +16,7 @@
   top: 0;
   left: 0;
   box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1);
-  z-index: 100;
+  z-index: 5;
   padding: 1rem;
   border-right: #434343 solid 1px;
 }
@@ -68,7 +68,7 @@
   position: fixed;
   top: 1rem;
   right: 1rem;
-  z-index: 101;
+  z-index: 10;
   background-color: #29183c;
   color: #fff;
   border: none;
