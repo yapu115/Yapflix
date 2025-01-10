@@ -57,7 +57,7 @@
   justify-content: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;
-  z-index: 15;
+  z-index: 12;
 }
 
 .footer .add-story:hover {
@@ -101,6 +101,10 @@
     margin-bottom: 0;
   }
 
+  .footer .story span {
+    margin-top: 0.6rem;
+  }
+
   .footer .add-story {
     position: absolute;
     right: 4rem;
@@ -110,7 +114,8 @@
   }
 }
 
-/*----------------------------------------------------------------------*/
+/* Upload new story */
+
 .new-story-modal {
   position: fixed;
   top: 0;
@@ -121,78 +126,68 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 200;
+  z-index: 20;
 }
 
 .new-story-modal-content {
-  background: #555;
+  background: linear-gradient(270deg, #552c87, #220053);
   text-align: center;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  z-index: 20;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
-/* Imagen en el modal */
 .new-story-modal-content img {
   width: 100%;
-  max-height: 100%;
-  border-radius: 10px;
+  max-width: 600px;
+  max-height: 900px;
 }
 
 .new-story-modal-buttons {
-  margin-top: 20px;
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 2;
 }
 
 .new-story-modal-buttons button {
   margin: 0 10px;
-  padding: 10px 20px;
-  background-color: #f3bb20;
-  border: none;
-  border-radius: 5px;
+  padding: 8px 16px;
+  font-size: large;
+  background-color: #e9ab00;
+  color: #ffffff;
+  border: #848484 solid 1px;
+  box-shadow: 0 -4px 6px rgba(144, 144, 144, 0.2);
+  border-radius: 20px;
   cursor: pointer;
-  color: #fff;
 }
 
-.new-story-modal-buttons button:nth-child(2) {
-  background-color: #555;
+.new-story-modal-buttons .new-story-cancel {
+  background-color: #821111;
 }
 
 .new-story-modal-buttons button:hover {
   opacity: 0.9;
 }
 
+@media (min-width: 768px) {
+  .new-story-modal-content {
+    object-fit: contain;
+    max-width: 550px;
+    max-height: 850px;
+    border-radius: 10px;
+  }
+}
+
 /* /////////////////////////////////////// */
-
-/* Contenedor principal */
-.stories-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Barra de historias */
-.stories-bar {
-  display: flex;
-  overflow-x: auto;
-  padding: 10px;
-  gap: 10px;
-}
-
-.story-item {
-  cursor: pointer;
-}
-
-.avatar {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  border: 2px solid #f44; /* Simula un borde como Instagram */
-}
 
 /* Modal de historias */
 .story-viewer {

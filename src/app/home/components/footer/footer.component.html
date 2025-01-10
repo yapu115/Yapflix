@@ -3,7 +3,12 @@
     @for (story of stories; track $index) {
     <div class="story" (click)="showStory(story)">
       <img [src]="story.userAvatar" alt="Story user avatar" />
+      @if (story.username === this.username){
+      <span>Me</span>
+      } @else {
       <span>{{ story.username }}</span>
+
+      }
     </div>
     }
   </div>
@@ -26,8 +31,10 @@
     <div class="new-story-modal-content">
       <img [src]="previewImage" alt="Preview" />
       <div class="new-story-modal-buttons">
-        <button (click)="uploadStory()">Subir Historia</button>
-        <button (click)="cancelUpload()">Cancelar</button>
+        <button class="new-story-cancel" (click)="cancelUpload()">
+          CANCEL
+        </button>
+        <button class="new-story-upload" (click)="uploadStory()">UPLOAD</button>
       </div>
     </div>
   </div>

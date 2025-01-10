@@ -15,6 +15,7 @@ export class FooterComponent {
   hideFooter: boolean = false;
   previewImage: string | null = null;
   userId: any;
+  username: string | undefined;
 
   files: File[] = [];
   storyFile: any;
@@ -29,10 +30,17 @@ export class FooterComponent {
     protected userService: UserService
   ) {
     this.userId = userService.getUserId();
+    this.username = userService.getUsername();
+
     this.storiesService.getAllStories().subscribe({
       next: (storiesResult: any) => {
         this.stories = storiesResult;
 
+        this.stories.sort((a: any, b: any) => {
+          if (a.username === this.username) return -1;
+          if (b.username === this.username) return 1;
+          return 0;
+        });
         console.log(this.stories);
       },
 
