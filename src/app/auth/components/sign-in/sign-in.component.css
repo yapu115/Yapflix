@@ -12,7 +12,7 @@
 .signin-container {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   width: 85%;
-  max-width: 800px;
+  max-width: 900px;
   background-color: #111315;
   color: #d9d9d9;
   border: solid #585a5f 4px;
@@ -42,7 +42,7 @@
 @media (min-width: 768px) {
   .signin-container {
     flex-direction: row;
-    height: 70%;
+    height: 65%;
   }
 
   .signin-form {

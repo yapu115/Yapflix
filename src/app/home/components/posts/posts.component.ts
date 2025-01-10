@@ -6,11 +6,20 @@ import { HomeService } from '../../services/home.service';
 import { UserService } from '../../../services/user.service';
 import { FormsModule } from '@angular/forms';
 import { Media } from '../../../classes/media';
+import { NotificationsService } from '../../../notifications/services/notifications.service';
+import { LoadingService } from '../../../services/loading.service';
+import { LoadingScreenComponent } from '../../../loading-screen/loading-screen.component';
 
 @Component({
   selector: 'app-posts',
   standalone: true,
-  imports: [SlickCarouselModule, CommonModule, RouterLink, FormsModule],
+  imports: [
+    SlickCarouselModule,
+    CommonModule,
+    RouterLink,
+    FormsModule,
+    LoadingScreenComponent,
+  ],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.css',
   schemas: [],
@@ -78,13 +87,17 @@ export class PostsComponent {
   constructor(
     protected homeService: HomeService,
     protected userService: UserService,
+    protected notificationsService: NotificationsService,
+    protected loadingService: LoadingService,
     protected router: Router
   ) {
+    this.loadingService.loading = true;
     this.userId = this.userService.getUserId();
     homeService.getAllPosts().subscribe({
       next: (posts: any) => {
         this.posts.push(...posts);
         this.currentIndex = this.posts.map(() => 0);
+        this.loadingService.loading = false;
       },
 
       error: (err) => {},
@@ -145,11 +158,33 @@ export class PostsComponent {
   }
 
   likePost(post: any) {
+    console.log(post);
+    console.log(this.userId);
     this.homeService.sendLike(post.id, this.userId).subscribe({
       next: (result: any) => {
         const message = result.message;
         if (message === 'Post liked') {
           post.likes++;
+
+          if (this.userId !== post.user_id) {
+            const notificationData = {
+              userId: post.user_id,
+              type: 'like',
+              content: `${this.userService.getUsername()} liked your post`,
+              senderId: this.userId,
+            };
+            this.notificationsService
+              .sendNotification(notificationData)
+              .subscribe({
+                next: (result: any) => {
+                  console.log(result);
+                },
+
+                error: (err) => {
+                  console.log(err);
+                },
+              });
+          }
         } else {
           post.likes--;
         }

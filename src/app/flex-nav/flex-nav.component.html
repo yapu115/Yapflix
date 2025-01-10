@@ -7,10 +7,27 @@
       <i class="fa fa-bell"></i>
     </div>
     <div class="menu-item chat" routerLink="/users-search">
-      <i class="fa fa-comments"></i>
+      <i class="fa fa-search"></i>
     </div>
     <div class="menu-item user" (click)="getUserProfile()">
       <i class="fa fa-user"></i>
     </div>
+    <div class="menu-item logout" (click)="openLogoutModal()">
+      <i class="fa fa-sign-out"></i>
+    </div>
   </nav>
 </div>
+
+@if (isModalOpen){
+<div class="sign-out-modal">
+  <div class="sign-out-modal-content">
+    <h2>Log out</h2>
+    <p>Are you sure you want to sign out?</p>
+    <div class="sign-out-modal-actions">
+      <button class="sign-out-btn cancel" (click)="closeModal()">Cancel</button>
+      <button class="sign-out-btn confirm" (click)="logout()">Sign out</button>
+    </div>
+  </div>
+</div>
+
+}

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { UserProfileService } from '../user-profile/services/user-profile.service';
+import { AuthService } from '../auth/services/auth.service';
 
 @Component({
   selector: 'app-flex-nav',
@@ -12,6 +13,7 @@ import { UserProfileService } from '../user-profile/services/user-profile.servic
 export class FlexNavComponent {
   constructor(
     protected userProfileService: UserProfileService,
+    protected authService: AuthService,
     protected router: Router
   ) {}
 
@@ -19,6 +21,31 @@ export class FlexNavComponent {
     this.userProfileService.deleteSearchedUser();
     this.router.navigate(['/user-profile'], {
       queryParams: { refresh: new Date().getTime() },
+    });
+  }
+
+  isModalOpen = false;
+
+  openLogoutModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+  logout() {
+    console.log('Cerrando sesión...');
+    this.authService.signOut().subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.isModalOpen = false;
+        this.router.navigate(['/signin']);
+      },
+
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
 }

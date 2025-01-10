@@ -29,10 +29,16 @@ export class SignInComponent {
   loginMessage: string = '';
 
   images: string[] = [
-    'imgs/sign-up/blade-runner.jpg',
-    'imgs/sign-up/tennet.jpg',
-    'imgs/sign-up/rogue-one.jpg',
-    'imgs/sign-up/harry-potter.jpg',
+    'imgs/Sign-in/blade-runner.jpg',
+    'imgs/Sign-in/keep_me_fed.jpg',
+    'imgs/Sign-in/spidermanps4.jpg',
+    'imgs/Sign-in/dune.jpg',
+    'imgs/Sign-in/harry-potter-film.jpg',
+    'imgs/Sign-in/harry_potter.jpg',
+    'imgs/Sign-in/invincible.jpg',
+    'imgs/Sign-in/tasm2.jpg',
+    'imgs/Sign-in/thriller.png',
+    'imgs/Sign-in/the_last_of_us.jpg',
   ];
   currentImage: number = 0;
 

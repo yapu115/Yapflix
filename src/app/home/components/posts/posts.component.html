@@ -1,3 +1,7 @@
+@if (this.loadingService.loading){
+<app-loading-screen></app-loading-screen>
+} @else {
+
 <section class="posts">
   @for (post of posts; track $index) {
   <div class="post">
@@ -49,9 +53,6 @@
           <span class="comment-counter"
             >{{ post.comments?.length }} comments</span
           >
-        </div>
-        <div class="share-container">
-          <i class="fa fa-share"></i>
         </div>
       </div>
     </div>
@@ -198,4 +199,4 @@
   }
 </div>
 
-}
+} }

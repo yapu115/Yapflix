@@ -19,12 +19,7 @@ export class FooterComponent {
   files: File[] = [];
   storyFile: any;
 
-  stories: any = [
-    {
-      username: 'story1',
-      image: '/imgs/tests/posts/2-Allen.jpg',
-    },
-  ];
+  stories: any = [];
 
   currentStory: any;
   currentStoryIndex: number = 0;
@@ -37,13 +32,7 @@ export class FooterComponent {
     this.storiesService.getAllStories().subscribe({
       next: (storiesResult: any) => {
         this.stories = storiesResult;
-        // this.stories = storiesResult.reduce((acc: any, story: any) => {
-        //   if (!acc[story.username]) {
-        //     acc[story.userId] = [];
-        //   }
-        //   acc[story.userId].push(story);
-        //   return acc;
-        // });
+
         console.log(this.stories);
       },
 

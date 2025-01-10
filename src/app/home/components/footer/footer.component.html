@@ -2,7 +2,7 @@
   <div class="stories">
     @for (story of stories; track $index) {
     <div class="story" (click)="showStory(story)">
-      <img [src]="story.userAvatar" alt="Story image" />
+      <img [src]="story.userAvatar" alt="Story user avatar" />
       <span>{{ story.username }}</span>
     </div>
     }
@@ -20,18 +20,22 @@
     style="display: none"
   />
 
+  <!-- Preview new story -->
   @if (previewImage){
-  <div class="modal" (click)="closeModal($event)">
-    <div class="modal-content">
+  <div class="new-story-modal" (click)="closeModal($event)">
+    <div class="new-story-modal-content">
       <img [src]="previewImage" alt="Preview" />
-      <div class="modal-buttons">
+      <div class="new-story-modal-buttons">
         <button (click)="uploadStory()">Subir Historia</button>
         <button (click)="cancelUpload()">Cancelar</button>
       </div>
     </div>
   </div>
 
-  } @if (currentStory){
+  }
+
+  <!-- Stories viualization -->
+  @if (currentStory){
   <div class="story-viewer">
     <div class="progress-bar-container">
       @for (story of currentStory.stories; track $index) {

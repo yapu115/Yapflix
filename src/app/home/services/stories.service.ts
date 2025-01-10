@@ -5,23 +5,17 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class StoriesService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'http://localhost:3000/stories';
 
   constructor(private http: HttpClient) {}
 
   getAllStories() {
-    return this.http.get(`${this.apiUrl}/stories/read`, {
+    return this.http.get(`${this.apiUrl}/read`, {
       withCredentials: true,
     });
   }
 
-  // getAllStories(userId: string) {
-  //   return this.http.get(`${this.apiUrl}/stories/read/${userId}/user`, {
-  //     withCredentials: true,
-  //   });
-  // }
-
   postStory(story: any) {
-    return this.http.post(`${this.apiUrl}/stories/create`, story);
+    return this.http.post(`${this.apiUrl}/create`, story);
   }
 }

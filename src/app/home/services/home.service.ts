@@ -10,20 +10,6 @@ export class HomeService {
 
   constructor(private http: HttpClient) {}
 
-  setMediaUrl(url: string): void {
-    localStorage.setItem(this.STORAGE_URL_KEY, url);
-  }
-
-  getMediaUrl(): string {
-    const imageUrl = localStorage.getItem(this.STORAGE_URL_KEY);
-    if (imageUrl) return imageUrl;
-    return 'no image found';
-  }
-
-  clearMediaUrl(): void {
-    localStorage.removeItem(this.STORAGE_URL_KEY);
-  }
-
   sendPost(postData: any) {
     return this.http.post(`${this.apiUrl}/posts/create`, postData);
   }
@@ -46,27 +32,22 @@ export class HomeService {
   }
 
   searchMedia(query: string, mediaType: string) {
-    let apiCall;
+    return this.http.get(`${this.apiUrl}/apis/${mediaType}?query=${query}`);
+  }
 
-    switch (mediaType) {
-      case 'movies':
-        apiCall = this.http.get(`${this.apiUrl}/apis/movies?query=${query}`);
-        break;
-      case 'videogames':
-        apiCall = this.http.get(
-          `${this.apiUrl}/apis/videogames?query=${query}`
-        );
-        break;
-      case 'books':
-        apiCall = this.http.get(`${this.apiUrl}/apis/books?query=${query}`);
-        break;
-      case 'music':
-        apiCall = this.http.get(`${this.apiUrl}/apis/music?query=${query}`);
-        break;
-      default:
-        throw new Error('Invalid media type');
-    }
+  // Media storage
 
-    return apiCall;
+  setMediaUrl(url: string): void {
+    localStorage.setItem(this.STORAGE_URL_KEY, url);
+  }
+
+  getMediaUrl(): string {
+    const imageUrl = localStorage.getItem(this.STORAGE_URL_KEY);
+    if (imageUrl) return imageUrl;
+    return 'no image found';
+  }
+
+  clearMediaUrl(): void {
+    localStorage.removeItem(this.STORAGE_URL_KEY);
   }
 }
