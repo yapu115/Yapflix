@@ -1,6 +1,7 @@
 import { Component, EventEmitter, HostListener, Output } from '@angular/core';
 import { StoriesService } from '../../services/stories.service';
 import { UserService } from '../../../services/user.service';
+import { LoadingService } from '../../../services/loading.service';
 
 @Component({
   selector: 'app-footer',
@@ -11,13 +12,12 @@ import { UserService } from '../../../services/user.service';
 })
 export class FooterComponent {
   @Output() showPostOptions = new EventEmitter<boolean>();
+
   footerActive: boolean = false;
   hideFooter: boolean = false;
   previewImage: string | null = null;
-  userId: any;
-  username: string | undefined;
+  user: any;
 
-  files: File[] = [];
   storyFile: any;
 
   stories: any = [];
@@ -27,18 +27,18 @@ export class FooterComponent {
 
   constructor(
     protected storiesService: StoriesService,
-    protected userService: UserService
+    protected userService: UserService,
+    protected loadingService: LoadingService
   ) {
-    this.userId = userService.getUserId();
-    this.username = userService.getUsername();
+    this.user = this.userService.getUser();
 
     this.storiesService.getAllStories().subscribe({
       next: (storiesResult: any) => {
         this.stories = storiesResult;
 
         this.stories.sort((a: any, b: any) => {
-          if (a.username === this.username) return -1;
-          if (b.username === this.username) return 1;
+          if (a.username === this.user.username) return -1;
+          if (b.username === this.user.username) return 1;
           return 0;
         });
         console.log(this.stories);
@@ -73,7 +73,7 @@ export class FooterComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
       const file = input.files[0];
-      this.files.push(file);
+      this.storyFile = file;
       const reader = new FileReader();
 
       reader.onload = () => {
@@ -96,28 +96,34 @@ export class FooterComponent {
     const postData = new FormData();
 
     if (this.previewImage) {
-      postData.append('userId', this.userId);
+      postData.append('userId', this.user.id);
       postData.append('type', 'image');
-      this.files.forEach((file) => {
-        postData.append('media', file);
-      });
+      postData.append('media', this.storyFile);
 
-      console.log(postData.get('media'));
-
+      this.loadingService.loading = true;
       this.storiesService.postStory(postData).subscribe({
         next: (response: any) => {
+          if (!this.stories[0]) {
+            this.stories[0] = {
+              stories: [],
+              userAvatar: this.user.avatar,
+              userId: this.user.id,
+              username: this.user.username,
+            };
+          }
+          this.stories[0].stories.unshift(response);
+          this.loadingService.loading = false;
+
           console.log(response);
         },
 
         error: (err) => {
+          this.loadingService.loading = false;
+
           console.log(err);
         },
       });
 
-      this.stories.push({
-        image: this.previewImage,
-        username: 'Me',
-      });
       this.previewImage = null;
       this.hideFooter = false;
     }
@@ -148,6 +154,9 @@ export class FooterComponent {
   previousStory() {
     if (this.currentStory && this.currentStoryIndex > 0) {
       this.currentStoryIndex--;
+    } else {
+      this.closeStoryViewer();
+      this.hideFooter = false;
     }
   }
 }

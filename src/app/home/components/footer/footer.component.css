@@ -189,7 +189,25 @@
 
 /* /////////////////////////////////////// */
 
-/* Modal de historias */
+.new-story-modal-content {
+  background: linear-gradient(270deg, #552c87, #220053);
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.new-story-modal-content img {
+  width: 100%;
+  max-width: 600px;
+  max-height: 900px;
+}
+
 .story-viewer {
   position: fixed;
   top: 0;
@@ -205,7 +223,6 @@
   z-index: 25;
 }
 
-/* Progreso */
 .progress-bar-container {
   position: absolute;
   top: 10px;
@@ -227,7 +244,6 @@
   background-color: white;
 }
 
-/* Cabecera */
 .story-viewer-header {
   display: flex;
   align-items: center;
@@ -254,7 +270,6 @@
   cursor: pointer;
 }
 
-/* Contenido de historia */
 .story-content {
   flex: 1;
   display: flex;
@@ -264,12 +279,9 @@
 
 .story-image {
   width: 100%;
-  /* max-width: 100%; */
-  /* max-height: 80vh; */
   object-fit: contain;
 }
 
-/* Navegación */
 .story-navigation {
   position: absolute;
   top: 0;

@@ -3,7 +3,7 @@
     @for (story of stories; track $index) {
     <div class="story" (click)="showStory(story)">
       <img [src]="story.userAvatar" alt="Story user avatar" />
-      @if (story.username === this.username){
+      @if (story.username === this.user.username){
       <span>Me</span>
       } @else {
       <span>{{ story.username }}</span>
@@ -65,7 +65,7 @@
 
     <div class="story-content">
       <img
-        [src]="currentStory.stories[currentStoryIndex].media[0].url"
+        [src]="currentStory.stories[currentStoryIndex].mediaUrl"
         class="story-image"
         alt="Story Image"
       />
