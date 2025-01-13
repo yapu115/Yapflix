@@ -22,7 +22,7 @@ export class UserService {
     return this.user?.Id;
   }
 
-  updateUser(updatedUser: User) {
+  updateUser(updatedUser: User | null) {
     this.user = updatedUser;
   }
 }

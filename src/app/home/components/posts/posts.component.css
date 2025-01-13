@@ -143,6 +143,7 @@
 
 .likes-container,
 .comment-container {
+  cursor: pointer;
   align-items: center;
   justify-content: center;
   display: flex;
@@ -152,10 +153,12 @@
 .icon-container i {
   margin: 0 10px;
   font-size: 1.5rem;
-  cursor: pointer;
   color: #fff;
-  transition: color 0.3s ease;
   background-color: #1d0e32;
+}
+
+.icon-container i.active {
+  color: #f32020;
 }
 
 .icon-container .like-counter,
@@ -163,10 +166,6 @@
   font-size: 0.9rem;
   color: #ccc;
   background-color: #1d0e32;
-}
-
-.icon-container i:hover {
-  color: #f3bb20;
 }
 
 /* Comments modal */
@@ -439,9 +438,7 @@
   width: 90%;
   max-width: 600px;
   max-height: 520px;
-
   margin-top: 2rem;
-
   background-color: #1e1e2f;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -451,6 +448,11 @@
   flex-direction: column;
   z-index: 20;
   overflow-y: auto;
+}
+@media (min-width: 768px) {
+  .search-container {
+    max-height: 720px;
+  }
 }
 
 .search-input-wrapper {

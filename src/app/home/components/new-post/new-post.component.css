@@ -1,10 +1,10 @@
 .preview-container {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
   align-items: center;
   justify-content: center;
-  overflow: auto;
+  overflow-y: auto;
 }
 
 .preview-carousel {
@@ -16,7 +16,7 @@
   padding: 2rem;
   border-radius: 8px;
   width: 70%;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 .carousel-container {
@@ -69,7 +69,8 @@
 }
 
 .thumbnails {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   justify-content: center;
   margin-bottom: 1rem;
@@ -134,6 +135,11 @@
 
   .description-input {
     width: 80%;
+  }
+
+  .thumbnail {
+    width: 5rem;
+    height: 5rem;
   }
 }
 

@@ -26,11 +26,7 @@
         <div class="carousel" [style.transform]="getCarouselTransform($index)">
           @for (image of post.pictures; track $index) {
           <div class="carousel-item">
-            <img
-              [src]="image.url"
-              alt="Imagen del post"
-              class="carousel-image"
-            />
+            <img [src]="image.url" alt="post picture" class="carousel-image" />
           </div>
           }
         </div>
@@ -45,8 +41,12 @@
     <div class="post-footer">
       <div class="icon-container">
         <div class="likes-container">
-          <i class="fa fa-heart" (click)="likePost(post)"></i>
-          <span class="like-counter">{{ post.likes }} likes</span>
+          <i
+            class="fa fa-heart"
+            [class.active]="post.likes.includes(this.userId)"
+            (click)="likePost(post)"
+          ></i>
+          <span class="like-counter">{{ post.likes.length }} likes</span>
         </div>
         <div class="comment-container" (click)="openComments(post)">
           <i class="fa fa-comment"></i>
@@ -109,6 +109,7 @@
   </div>
 </section>
 
+<!-- New post -->
 @if (showPostOptions){
 <div class="new-post-modal-container">
   <div class="blur-background"></div>
@@ -119,7 +120,7 @@
     <div class="search-input-wrapper">
       <input
         type="text"
-        placeholder="Search movies..."
+        placeholder="Search {{ this.mediaType }}..."
         class="search-input"
         [(ngModel)]="searchQuery"
         (keydown.enter)="onSearch()"

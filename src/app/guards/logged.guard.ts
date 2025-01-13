@@ -20,6 +20,7 @@ export const loggedGuard: CanActivateFn = (route, state) => {
     }),
     catchError((err) => {
       console.log(err);
+      userService.updateUser(null);
       return of(true);
     })
   );

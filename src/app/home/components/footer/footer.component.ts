@@ -35,7 +35,6 @@ export class FooterComponent {
     this.storiesService.getAllStories().subscribe({
       next: (storiesResult: any) => {
         this.stories = storiesResult;
-        console.log(this.stories);
 
         const now = new Date().getTime();
 
@@ -52,7 +51,6 @@ export class FooterComponent {
             };
           })
           .filter((userStories: any) => userStories.stories.length > 0);
-        console.log(this.stories);
 
         this.stories.sort((a: any, b: any) => {
           if (a.username === this.user.username) return -1;
@@ -73,7 +71,6 @@ export class FooterComponent {
   }
 
   showStory(story: any) {
-    console.log(story);
     this.currentStory = story;
     this.currentStoryIndex = 0;
     this.hideFooter = true;

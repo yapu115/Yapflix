@@ -55,6 +55,7 @@ export class PostsComponent {
       next: (posts: any) => {
         this.posts.push(...posts);
         this.currentIndex = this.posts.map(() => 0);
+        console.log(this.posts);
         this.loadingService.loading = false;
       },
 
@@ -116,13 +117,11 @@ export class PostsComponent {
   }
 
   likePost(post: any) {
-    console.log(post);
-    console.log(this.userId);
     this.homeService.sendLike(post.id, this.userId).subscribe({
       next: (result: any) => {
         const message = result.message;
         if (message === 'Post liked') {
-          post.likes++;
+          post.likes.push(this.userId);
 
           if (this.userId !== post.user_id) {
             const notificationData = {
@@ -144,7 +143,7 @@ export class PostsComponent {
               });
           }
         } else {
-          post.likes--;
+          post.likes = post.likes.filter((id: any) => id !== this.userId);
         }
       },
 
@@ -201,7 +200,7 @@ export class PostsComponent {
                 item.volumeInfo.title,
                 item.volumeInfo.imageLinks?.thumbnail,
                 {
-                  author: item.volumeInfo.authors.join(', '),
+                  author: item.volumeInfo.authors,
                 }
               );
             });
