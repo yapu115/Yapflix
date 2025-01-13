@@ -27,7 +27,7 @@
 
   <!-- Preview new story -->
   @if (previewImage){
-  <div class="new-story-modal" (click)="closeModal($event)">
+  <div class="new-story-modal" (click)="closeNewStoryModal($event)">
     <div class="new-story-modal-content">
       <img [src]="previewImage" alt="Preview" />
       <div class="new-story-modal-buttons">
@@ -42,40 +42,44 @@
   }
 
   <!-- Stories viualization -->
+
   @if (currentStory){
-  <div class="story-viewer">
-    <div class="progress-bar-container">
-      @for (story of currentStory.stories; track $index) {
-      <div
-        class="progress-bar"
-        [class.active]="$index <= currentStoryIndex"
-      ></div>
-      }
-    </div>
+  <div class="story-viewer-modal" (click)="closeViewerModal($event)">
+    <div class="story-viewer">
+      <div class="progress-bar-container">
+        @for (story of currentStory.stories; track $index) {
+        <div
+          class="progress-bar"
+          [class.active]="$index <= currentStoryIndex"
+        ></div>
+        }
+      </div>
 
-    <div class="story-viewer-header">
-      <img
-        [src]="currentStory.userAvatar"
-        class="avatar-small"
-        alt="User Avatar"
-      />
-      <p>{{ currentStory.username }}</p>
-      <button class="close-button" (click)="closeStoryViewer()">×</button>
-    </div>
+      <div class="story-viewer-header">
+        <img
+          [src]="currentStory.userAvatar"
+          class="avatar-small"
+          alt="User Avatar"
+        />
+        <p>{{ currentStory.username }}</p>
+        <button class="close-button" (click)="closeStoryViewer()">×</button>
+      </div>
 
-    <div class="story-content">
-      <img
-        [src]="currentStory.stories[currentStoryIndex].mediaUrl"
-        class="story-image"
-        alt="Story Image"
-      />
-    </div>
+      <div class="story-content">
+        <img
+          [src]="currentStory.stories[currentStoryIndex].mediaUrl"
+          class="story-image"
+          alt="Story Image"
+        />
+      </div>
 
-    <div class="story-navigation">
-      <div class="nav-left" (click)="previousStory()"></div>
-      <div class="nav-right" (click)="nextStory()"></div>
+      <div class="story-navigation">
+        <div class="nav-left" (click)="previousStory()"></div>
+        <div class="nav-right" (click)="nextStory()"></div>
+      </div>
     </div>
   </div>
+
   }
 </footer>
 

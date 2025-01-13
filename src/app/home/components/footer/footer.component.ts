@@ -35,13 +35,30 @@ export class FooterComponent {
     this.storiesService.getAllStories().subscribe({
       next: (storiesResult: any) => {
         this.stories = storiesResult;
+        console.log(this.stories);
+
+        const now = new Date().getTime();
+
+        this.stories = storiesResult
+          .map((userStories: any) => {
+            const filteredStories = userStories.stories.filter((story: any) => {
+              const expirationDate = new Date(story.expiration_date).getTime();
+              return expirationDate >= now;
+            });
+
+            return {
+              ...userStories,
+              stories: filteredStories,
+            };
+          })
+          .filter((userStories: any) => userStories.stories.length > 0);
+        console.log(this.stories);
 
         this.stories.sort((a: any, b: any) => {
           if (a.username === this.user.username) return -1;
           if (b.username === this.user.username) return 1;
           return 0;
         });
-        console.log(this.stories);
       },
 
       error: (err) => {
@@ -85,10 +102,17 @@ export class FooterComponent {
     }
   }
 
-  closeModal(event: MouseEvent) {
+  closeNewStoryModal(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    if (target.classList.contains('modal')) {
+    if (target.classList.contains('new-story-modal')) {
       this.cancelUpload();
+    }
+  }
+
+  closeViewerModal(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    if (target.classList.contains('story-viewer-modal')) {
+      this.closeStoryViewer();
     }
   }
 
@@ -103,7 +127,16 @@ export class FooterComponent {
       this.loadingService.loading = true;
       this.storiesService.postStory(postData).subscribe({
         next: (response: any) => {
-          if (!this.stories[0]) {
+          if (
+            this.stories[0] &&
+            this.stories[0].username !== this.user.username
+          ) {
+            this.stories[1] = this.stories[0];
+          }
+          if (
+            !this.stories[0] ||
+            this.stories[0].username !== this.user.username
+          ) {
             this.stories[0] = {
               stories: [],
               userAvatar: this.user.avatar,

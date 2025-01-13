@@ -16,7 +16,6 @@ import { LoadingScreenComponent } from '../../../loading-screen/loading-screen.c
   imports: [
     SlickCarouselModule,
     CommonModule,
-    RouterLink,
     FormsModule,
     LoadingScreenComponent,
   ],
@@ -41,48 +40,7 @@ export class PostsComponent {
   mediaList: any = [];
   filteredMedia = [...this.mediaList];
 
-  posts: any = [
-    {
-      username: 'Allen the alien',
-      userAvatar: '/imgs/tests/posts/2-Allen.jpg',
-      pictures: [
-        {
-          url: '/imgs/tests/posts/2-videogame.jpg',
-          order: 1,
-        },
-        {
-          url: '/imgs/tests/posts/2-pic2.jpg',
-          order: 2,
-        },
-        {
-          url: '/imgs/tests/posts/2-pic3.jpg',
-          order: 3,
-        },
-        {
-          url: '/imgs/tests/posts/2-pic4.jpg',
-          order: 4,
-        },
-      ],
-      message:
-        'We can’t thank you enough for all the love and support you’ve shown us this year 🥹You’ve made 2024 unforgettable, and we’re so ready to make 2025 even bigger and better ❤️‍🔥',
-      likes: 22,
-      date: new Date(),
-      comments: [
-        {
-          username: 'Mark grayson',
-          userAvatar: '/imgs/tests/posts/1-mark.jpg',
-          content: 'This is a comment',
-          date: new Date('2024-12-01T15:00:00'),
-        },
-        {
-          username: 'Mark grayson',
-          userAvatar: '/imgs/tests/posts/1-mark.jpg',
-          content: 'This is a comment',
-          date: new Date('2024-12-01T15:10:00'),
-        },
-      ],
-    },
-  ];
+  posts: any = [];
 
   constructor(
     protected homeService: HomeService,

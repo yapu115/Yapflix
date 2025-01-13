@@ -30,6 +30,8 @@
   }
 }
 
+/* single post body */
+
 .post-header {
   display: flex;
   align-items: center;
@@ -167,7 +169,7 @@
   color: #f3bb20;
 }
 
-/* Modal styles */
+/* Comments modal */
 .comments-modal {
   position: fixed;
   top: 0;
@@ -231,7 +233,6 @@
   align-items: flex-start;
   margin-bottom: 1.2rem;
   margin-top: 0.4rem;
-  /* border-bottom: 2px #8c8c8c solid; */
   padding-bottom: 0.5rem;
 }
 
@@ -405,6 +406,20 @@
   color: #c5c5c5;
   margin-top: 20px;
   text-align: center;
+}
+
+@media (min-width: 768px) {
+  .new-post-option-button {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  .new-post-option-img {
+    width: 8rem;
+    height: 8rem;
+    object-fit: cover;
+    border-radius: 8px;
+  }
 }
 
 @keyframes modalEnter {
