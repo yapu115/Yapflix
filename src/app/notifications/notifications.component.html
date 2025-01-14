@@ -11,7 +11,7 @@
         <img [src]="notification.user_avatar" alt="User photo" class="photo" />
         <div class="content">
           <p class="message">{{ notification.content }}</p>
-          <span class="date">{{ notification.created_at }}</span>
+          <span class="date">{{ notification.created_at | date }}</span>
         </div>
       </div>
       } }

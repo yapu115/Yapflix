@@ -20,6 +20,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     catchError((err) => {
       userService.updateUser(null);
       router.navigateByUrl('/sign-in');
+      localStorage.removeItem('savedAvatar');
       return of(false);
     })
   );

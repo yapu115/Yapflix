@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { NotificationsService } from './services/notifications.service';
 import { UserService } from '../services/user.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-notifications',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.css',
 })
@@ -16,45 +17,7 @@ export class NotificationsComponent {
     { title: 'Previous', items: [] },
   ];
 
-  notifications: any = [
-    {
-      title: 'New',
-      items: [
-        {
-          photo: 'https://via.placeholder.com/50',
-          message: 'jonel0l started following you.',
-          date: '15h',
-        },
-      ],
-    },
-    {
-      title: 'Yesterday',
-      id: '290923-ñ3492324',
-      userId: '29i923-24940932',
-      items: [
-        {
-          userAvatar: 'https://via.placeholder.com/50',
-          content: '5kfans.foryou_800 started following you.',
-          date: '10/12',
-        },
-      ],
-    },
-    {
-      title: 'This week',
-      items: [
-        {
-          photo: 'https://via.placeholder.com/50',
-          message: 's_yzd16 started following you.',
-          date: '3d',
-        },
-        {
-          photo: 'https://via.placeholder.com/50',
-          message: 'zoe_olmos92 started following you.',
-          date: '3d',
-        },
-      ],
-    },
-  ];
+  notifications: any = [];
 
   userId: any;
   constructor(

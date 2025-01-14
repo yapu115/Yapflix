@@ -16,4 +16,8 @@ export class User {
   get Id() {
     return this.id;
   }
+
+  public set Avatar(newAvatar: string) {
+    this.avatar = newAvatar;
+  }
 }

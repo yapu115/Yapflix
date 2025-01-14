@@ -21,6 +21,7 @@ export const loggedGuard: CanActivateFn = (route, state) => {
     catchError((err) => {
       console.log(err);
       userService.updateUser(null);
+      localStorage.removeItem('savedAvatar');
       return of(true);
     })
   );

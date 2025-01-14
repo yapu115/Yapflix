@@ -1,10 +1,14 @@
 <header class="profile-header">
   <div class="avatar-container">
-    <img [src]="user.avatar" alt="User Avatar" class="avatar" />
+    <img
+      [src]="user.avatar"
+      alt="User Avatar"
+      class="avatar"
+      (click)="onAvatarClick()"
+    />
   </div>
   <div class="user-info">
     <h1 class="username">{{ user.username }}</h1>
-    <p class="bio">{{ user.bio }}</p>
     <div class="stats">
       <span
         ><strong>{{ postsCount }}</strong> Posts</span
@@ -18,3 +22,18 @@
     </div>
   </div>
 </header>
+
+@if (showModal){
+<div class="new-avatar-modal" (click)="closeModal($event)">
+  <div class="new-avatar-modal-content" (click)="stopPropagation($event)">
+    <h2>Confirm new avatar</h2>
+    <p>Do you want to use this picture as your new avatar?</p>
+    <img [src]="previewImage" alt="Preview Avatar" class="avatar-preview" />
+    <div class="new-avatar-modal-actions">
+      <button (click)="cancelAvatarChange()">Cancel</button>
+      <button (click)="confirmAvatarChange()">Confirm</button>
+    </div>
+  </div>
+</div>
+
+}

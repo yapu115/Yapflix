@@ -7,7 +7,7 @@
     (input)="onSearch()"
   />
 
-  @if (filteredUsers.length > 0){
+  @if (searchQuery){ @if (filteredUsers.length > 0){
   <div class="search-results">
     @for (user of filteredUsers; track $index) { @if (user.id !==
     this.userService.getUserId()){
@@ -22,12 +22,12 @@
         <span class="username">{{ user.username }}</span>
       </div>
       <button class="follow-btn" (click)="toggleFollow(user)">
-        {{ user.isFollowing ? "Siguiendo" : "Seguir" }}
+        {{ user.isFollowing ? "Following" : "Follow" }}
       </button>
     </div>
 
     } }
   </div>
 
-  }
+  } }
 </div>

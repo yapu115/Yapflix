@@ -156,6 +156,27 @@ export class PostsComponent {
       next: (result: any) => {
         console.log(result);
 
+        if (this.userId !== post.user_id) {
+          const notificationData = {
+            userId: post.user_id,
+            type: 'like',
+            content: `${this.userService.getUsername()} commented your post`,
+            senderId: this.userId,
+          };
+
+          this.notificationsService
+            .sendNotification(notificationData)
+            .subscribe({
+              next: (result: any) => {
+                console.log(result);
+              },
+
+              error: (err) => {
+                console.log(err);
+              },
+            });
+        }
+
         this.selectedPost.comments.push(result);
       },
 

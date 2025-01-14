@@ -55,4 +55,8 @@ export class UserProfileService {
       content,
     });
   }
+
+  updateUserAvatar(avatarData: any) {
+    return this.http.post(`${this.apiUrl}/users/avatar`, avatarData);
+  }
 }

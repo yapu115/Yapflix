@@ -60,17 +60,13 @@
 
 .user-info {
   flex-grow: 1;
+  cursor: pointer;
 }
 
 .username {
   font-weight: bold;
   font-size: 1.4rem;
   color: #969696;
-}
-
-.full-name {
-  font-size: 0.8rem;
-  color: #666;
 }
 
 .follow-btn {
@@ -86,4 +82,37 @@
 
 .follow-btn:hover {
   background-color: #d1a318;
+}
+
+@media (min-width: 768px) {
+  .search-container {
+    max-width: 600px;
+  }
+
+  .search-results {
+    margin-top: 1.5rem;
+    max-height: 700px;
+  }
+
+  .user-card {
+    padding: 0.8rem 0;
+  }
+
+  .user-image {
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-right: 1.8rem;
+  }
+
+  .username {
+    font-size: 2rem;
+  }
+
+  .follow-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
 }

@@ -4,15 +4,9 @@
   color: white;
 }
 
-.section-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
 .posts-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 0.5fr));
+  grid-template-columns: repeat(auto-fill, minmax(120px, 0.5fr));
   gap: 1rem;
 }
 
@@ -27,10 +21,6 @@
 
 .post-image {
   width: 100%;
-  /* border-radius: 8px; */
-
-  /* height: 100%; */
-
   object-fit: contain;
 }
 
@@ -46,4 +36,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+@media (min-width: 768px) {
+  .posts-container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 0.5fr));
+    gap: 1.2rem;
+  }
 }

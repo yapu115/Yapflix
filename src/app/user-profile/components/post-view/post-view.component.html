@@ -41,8 +41,12 @@
     <div class="post-footer">
       <div class="icon-container">
         <div class="likes-container">
-          <i class="fa fa-heart" (click)="likePost(post)"></i>
-          <span class="like-counter">{{ post.likes }} likes</span>
+          <i
+            class="fa fa-heart"
+            (click)="likePost(post)"
+            [class.active]="post.likes.includes(this.userId)"
+          ></i>
+          <span class="like-counter">{{ post.likes.length }} likes</span>
         </div>
         <div class="comment-container" (click)="openComments(post)">
           <i class="fa fa-comment"></i>

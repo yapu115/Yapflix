@@ -4,6 +4,8 @@ import { UserService } from '../../../services/user.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HomeService } from '../../../home/services/home.service';
+import { NotificationsService } from '../../../notifications/services/notifications.service';
+import { LoadingService } from '../../../services/loading.service';
 
 @Component({
   selector: 'app-post-view',
@@ -29,6 +31,8 @@ export class PostViewComponent {
   constructor(
     protected userProfileService: UserProfileService,
     protected homeService: HomeService,
+    protected notificationsService: NotificationsService,
+    protected loadingService: LoadingService,
     protected userService: UserService
   ) {
     this.user = this.userService.getUser();
@@ -37,7 +41,7 @@ export class PostViewComponent {
   }
 
   getPosts() {
-    console.log(this.userId);
+    this.loadingService.loading = true;
     this.userProfileService.getAllPosts(this.userId).subscribe({
       next: (response: any) => {
         this.userPosts = response;
@@ -45,6 +49,7 @@ export class PostViewComponent {
         this.currentIndex = this.userPosts.map(() => 0);
 
         setTimeout(() => {
+          this.loadingService.loading = false;
           this.scrollToSelectedPost();
         }, 100);
       },
@@ -113,9 +118,29 @@ export class PostViewComponent {
       next: (result: any) => {
         const message = result.message;
         if (message === 'Post liked') {
-          post.likes++;
+          post.likes.push(this.userId);
+
+          if (this.userId !== post.user_id) {
+            const notificationData = {
+              userId: post.user_id,
+              type: 'like',
+              content: `${this.userService.getUsername()} liked your post`,
+              senderId: this.userId,
+            };
+            this.notificationsService
+              .sendNotification(notificationData)
+              .subscribe({
+                next: (result: any) => {
+                  console.log(result);
+                },
+
+                error: (err) => {
+                  console.log(err);
+                },
+              });
+          }
         } else {
-          post.likes--;
+          post.likes = post.likes.filter((id: any) => id !== this.userId);
         }
       },
 
@@ -128,25 +153,31 @@ export class PostViewComponent {
       next: (result: any) => {
         console.log(result);
 
+        if (this.userId !== post.user_id) {
+          const notificationData = {
+            userId: post.user_id,
+            type: 'like',
+            content: `${this.userService.getUsername()} commented your post`,
+            senderId: this.userId,
+          };
+
+          this.notificationsService
+            .sendNotification(notificationData)
+            .subscribe({
+              next: (result: any) => {
+                console.log(result);
+              },
+
+              error: (err) => {
+                console.log(err);
+              },
+            });
+        }
+
         this.selectedPost.comments.push(result);
       },
 
       error: (err) => {},
     });
-  }
-
-  addComment(): void {
-    if (!this.selectedPost) return;
-
-    const newCommentObject = {
-      user: 'UsuarioActual',
-      userAvatar: '/imgs/defaults/avatar.png',
-      date: new Date(),
-      message: this.newComment.trim(),
-    };
-
-    this.selectedPost.comments.push(newCommentObject);
-
-    this.newComment = '';
   }
 }

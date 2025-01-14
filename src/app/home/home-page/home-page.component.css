@@ -17,7 +17,6 @@ app-footer {
   flex: 0 0 auto;
 }
 
-/* home.component.css */
 .home-container {
   display: flex;
   flex-direction: column;

@@ -6,7 +6,6 @@ import { User } from '../../classes/user';
 import { HomeService } from '../../home/services/home.service';
 import { UserProfileService } from '../services/user-profile.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PostViewComponent } from '../components/post-view/post-view.component';
 
 @Component({
   selector: 'app-profile-page',
@@ -33,8 +32,6 @@ export class ProfilePageComponent implements OnInit {
     this.route.queryParams.subscribe(() => {
       this.loadData();
     });
-
-    // this.loadData();
   }
 
   loadData(): void {
@@ -42,6 +39,8 @@ export class ProfilePageComponent implements OnInit {
       this.user = this.userProfileService.getSearchedUser();
     } else {
       this.user = this.userService.getUser();
+      const savedAvatar = localStorage.getItem('savedAvatar');
+      if (savedAvatar) this.user.avatar = savedAvatar;
     }
     this.getPosts();
     this.getFollowers();
