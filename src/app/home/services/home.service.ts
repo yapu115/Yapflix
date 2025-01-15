@@ -14,8 +14,8 @@ export class HomeService {
     return this.http.post(`${this.apiUrl}/posts/create`, postData);
   }
 
-  getAllPosts() {
-    return this.http.get(`${this.apiUrl}/posts/read`, {
+  getAllPosts(userId: string) {
+    return this.http.get(`${this.apiUrl}/posts/${userId}/read`, {
       withCredentials: true,
     });
   }

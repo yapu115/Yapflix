@@ -238,3 +238,33 @@
 .error-message + button {
   margin-top: 15px;
 }
+
+/* users buttons */
+
+.test-users {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.test-user-btn {
+  flex: 1;
+  margin: 0 0.5rem;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  background-color: #452f65;
+  color: #caccb5;
+  border: 2px solid #595959;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.test-user-btn:hover {
+  background-color: #3d1f79;
+  color: #fafad0;
+}

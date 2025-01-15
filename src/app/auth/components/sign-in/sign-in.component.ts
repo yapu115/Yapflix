@@ -148,4 +148,18 @@ export class SignInComponent {
 
     return validatedFields;
   }
+
+  signPeterParker() {
+    this.loginForm.patchValue({
+      username: 'Parker115',
+      password: 'Spiderman!115',
+    });
+  }
+
+  signDeCecco() {
+    this.loginForm.patchValue({
+      username: 'DeCecco115',
+      password: 'HelloThere!115',
+    });
+  }
 }

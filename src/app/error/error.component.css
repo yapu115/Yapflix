@@ -1,0 +1,50 @@
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1e1e2f;
+  background-color: #000;
+  color: #ffffff;
+  text-align: center;
+  padding: 20px;
+}
+
+.error-content {
+  max-width: 500px;
+  border: 2px solid #6c63ff;
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+  background-color: #282a36;
+}
+
+.error-title {
+  font-size: 8rem;
+  font-weight: bold;
+  color: #ff6f61;
+  margin: 0;
+}
+
+.error-message {
+  font-size: 1.5rem;
+  margin: 20px 0;
+  color: #d3d3d3;
+}
+
+.back-home-button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #6c63ff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.back-home-button:hover {
+  background-color: #5348c3;
+}

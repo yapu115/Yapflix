@@ -32,7 +32,7 @@ export class FooterComponent {
   ) {
     this.user = this.userService.getUser();
 
-    this.storiesService.getAllStories().subscribe({
+    this.storiesService.getAllStories(this.user.id).subscribe({
       next: (storiesResult: any) => {
         this.stories = storiesResult;
 

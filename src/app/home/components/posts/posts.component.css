@@ -1,5 +1,6 @@
 /* Posts Section */
 .posts {
+  min-height: 100vh;
   flex: 1;
   overflow-y: visible;
   background-color: #000000;

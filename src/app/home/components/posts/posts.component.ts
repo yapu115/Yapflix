@@ -51,7 +51,7 @@ export class PostsComponent {
   ) {
     this.loadingService.loading = true;
     this.userId = this.userService.getUserId();
-    homeService.getAllPosts().subscribe({
+    homeService.getAllPosts(this.userId).subscribe({
       next: (posts: any) => {
         this.posts.push(...posts);
         this.currentIndex = this.posts.map(() => 0);
@@ -59,7 +59,13 @@ export class PostsComponent {
         this.loadingService.loading = false;
       },
 
-      error: (err) => {},
+      error: (err) => {
+        console.log(err);
+        this.loadingService.loading = false;
+        if (err.error === 'no posts found') {
+          console.log('aa');
+        }
+      },
     });
   }
 

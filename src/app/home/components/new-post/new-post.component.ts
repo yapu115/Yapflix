@@ -1,20 +1,15 @@
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeService } from '../../services/home.service';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
+import { LoadingService } from '../../../services/loading.service';
+import { LoadingScreenComponent } from '../../../loading-screen/loading-screen.component';
 
 @Component({
   selector: 'app-new-post',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule, FormsModule, LoadingScreenComponent],
   templateUrl: './new-post.component.html',
   styleUrl: './new-post.component.css',
 })
@@ -37,6 +32,7 @@ export class NewPostComponent {
   constructor(
     protected homeService: HomeService,
     protected userService: UserService,
+    protected loadingService: LoadingService,
     protected router: Router
   ) {
     this.userId = userService.getUserId();
@@ -106,15 +102,18 @@ export class NewPostComponent {
     postData.append('message', this.description);
     postData.append('urlMediaImage', this.urlMediaImage);
 
+    this.loadingService.loading = true;
     this.homeService.sendPost(postData).subscribe({
       next: (response: any) => {
         console.log(response);
         this.homeService.clearMediaUrl();
+        this.loadingService.loading = false;
         this.router.navigateByUrl('/home');
       },
 
       error: (err) => {
         console.log(err);
+        this.loadingService.loading = false;
       },
     });
   }

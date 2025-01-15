@@ -9,8 +9,8 @@ export class StoriesService {
 
   constructor(private http: HttpClient) {}
 
-  getAllStories() {
-    return this.http.get(`${this.apiUrl}/read`, {
+  getAllStories(userId: string) {
+    return this.http.get(`${this.apiUrl}/${userId}/read`, {
       withCredentials: true,
     });
   }
