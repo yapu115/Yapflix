@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class StoriesService {
-  private apiUrl = 'http://localhost:3000/stories';
+  private apiUrl = 'https://yapflix-server.onrender.com/stories';
 
   constructor(private http: HttpClient) {}
 

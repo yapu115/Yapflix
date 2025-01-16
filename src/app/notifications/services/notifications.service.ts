@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class NotificationsService {
-  private apiUrl = 'http://localhost:3000/notifications';
+  private apiUrl = 'https://yapflix-server.onrender.com/notifications';
 
   constructor(private http: HttpClient) {}
 

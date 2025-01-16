@@ -19,6 +19,10 @@
   align-items: center;
 }
 
+.post-card:hover {
+  cursor: pointer;
+}
+
 .post-image {
   width: 100%;
   object-fit: contain;

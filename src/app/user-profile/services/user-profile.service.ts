@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class UserProfileService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://yapflix-server.onrender.com';
   private selectedPost: any = null;
   private searchedUser: any;
 

@@ -35,8 +35,13 @@ export class PostViewComponent {
     protected loadingService: LoadingService,
     protected userService: UserService
   ) {
-    this.user = this.userService.getUser();
-    this.userId = this.userService.getUserId();
+    if (this.userProfileService.getSearchedUser()) {
+      this.user = this.userProfileService.getSearchedUser();
+      this.userId = this.user.id;
+    } else {
+      this.user = this.userService.getUser();
+      this.userId = this.userService.getUserId();
+    }
     this.getPosts();
   }
 

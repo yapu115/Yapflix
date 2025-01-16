@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/users/';
+  private apiUrl = 'https://yapflix-server.onrender.com/users';
 
   constructor(private http: HttpClient, protected router: Router) {}
 
@@ -15,7 +15,7 @@ export class AuthService {
   }
 
   signIn(userData: any) {
-    return this.http.post(`${this.apiUrl}signin`, userData, {
+    return this.http.post(`${this.apiUrl}/signin`, userData, {
       withCredentials: true,
     });
   }

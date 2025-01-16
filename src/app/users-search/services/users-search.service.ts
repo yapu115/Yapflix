@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class UsersSearchService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://yapflix-server.onrender.com';
 
   constructor(private http: HttpClient) {}
 

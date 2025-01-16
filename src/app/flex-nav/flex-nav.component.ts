@@ -35,12 +35,13 @@ export class FlexNavComponent {
   }
 
   logout() {
-    console.log('Cerrando sesión...');
+    console.log('Signing out...');
     this.authService.signOut().subscribe({
       next: (response: any) => {
+        console.log(response);
         this.isModalOpen = false;
         localStorage.removeItem('savedAvatar');
-        this.router.navigate(['/signin']);
+        this.router.navigate(['/sign-in']);
       },
 
       error: (err) => {

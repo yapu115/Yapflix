@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class HomeService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://yapflix-server.onrender.com';
   private readonly STORAGE_URL_KEY = 'savedUrl';
 
   constructor(private http: HttpClient) {}
