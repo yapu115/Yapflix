@@ -8,7 +8,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 50px;
+  width: 30px;
   height: 100vh;
   background-color: #200045;
   color: #fff;
@@ -71,24 +71,6 @@
   .menu-item.logout {
     margin-bottom: 0;
   }
-}
-
-.toggle-sidebar {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 10;
-  background-color: #29183c;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  font-size: 1.2rem;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.toggle-sidebar:hover {
-  background-color: #3d2554;
 }
 
 /* Modal */
