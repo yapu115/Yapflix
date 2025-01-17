@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Query, SimpleChanges } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { HomeService } from '../../services/home.service';
 import { UserService } from '../../../services/user.service';
 import { FormsModule } from '@angular/forms';
@@ -13,12 +12,7 @@ import { LoadingScreenComponent } from '../../../loading-screen/loading-screen.c
 @Component({
   selector: 'app-posts',
   standalone: true,
-  imports: [
-    SlickCarouselModule,
-    CommonModule,
-    FormsModule,
-    LoadingScreenComponent,
-  ],
+  imports: [CommonModule, FormsModule, LoadingScreenComponent],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.css',
   schemas: [],
