@@ -4,6 +4,12 @@
 
 This is the frontend of a mini social network, where users can upload images of their favorite movies, TV shows, songs, video games, and books. Moreover, they can also interact with other people's posts and profiles.
 
+# Links
+
+Web page: https://yapflix.vercel.app/
+
+backend: https://github.com/yapu115/yapflix-server
+
 ---
 
 ### 🚀 **Features**
@@ -42,29 +48,30 @@ There are two sample users, with personalized posts and profiles.
 </div>
 
 
----
-
-<div align="center" margin-bottom="200px">
+<div align="center" >
 
   <img src="https://github.com/user-attachments/assets/dffc16db-5c1a-47d0-b859-8cd7fb37af94" alt="Register" width="700">
   <img src="https://github.com/user-attachments/assets/536daea0-a165-478a-a537-dad418fcbe51" alt="Login" width="700"  >
 
 </div>
 
-<div align="center" margin-top="200px">
+---
+
+<div align="center" style="margin-top: 100px;">
   
 When you enter the home page, you will be able to see the publications of other users and your own, giving you the option to browse through the images, give a like, or leave a comment.  
   
 </div>
 
 
----
 
 <div align="center"> 
 
  <img src="https://github.com/user-attachments/assets/7a7c8051-b27a-4313-a81f-27b2543715bc" alt="Home page" width="700">
   
 </div>
+
+---
 
 <div align="center">
   
@@ -73,15 +80,13 @@ In addition, 4 options will be displayed to make a new publication (Movies and T
   
 </div>
 
-
----
-
 <div align="center">
   
   <img src="https://github.com/user-attachments/assets/d3e42aa7-3e5d-44bb-9de6-059b8bbc2812" alt="New post/story" width="700">
 
 </div>
 
+---
 
 <div align="center">
   
@@ -89,7 +94,6 @@ Selecting any of these options will take the user to a search engine where they 
 
 </div>
 
----
 
 <div align="center">
   
@@ -97,19 +101,22 @@ Selecting any of these options will take the user to a search engine where they 
   
 </div>
 
+---
+
 <div align="center">
   
 Once you have selected the specific media, you will be taken to the upload screen to add images to the publication and also a small message.  
   
 </div>
 
----
 
 <div align="center">
 
   <img src="https://github.com/user-attachments/assets/1c78f029-3368-4de5-b044-3e69445d281b" alt="New post" width="700">
 
 </div>
+
+---
 
 <div align="center">
   
@@ -124,6 +131,8 @@ By clicking on "Post," the publication will be uploaded, and your followers will
   
 </div>
 
+---
+
 <div align="center">
   
 You can also see the user's posts on their profile page, as well as notifications from other users.  
@@ -137,6 +146,8 @@ You can also see the user's posts on their profile page, as well as notification
   
 </div>
 
+---
+
 <div align="center">
   
 In addition to this, you can search for other users.  
@@ -146,6 +157,7 @@ In addition to this, you can search for other users.
 <div align="center">
 
   <img src="https://github.com/user-attachments/assets/d77c4e08-1de9-41e9-9e28-73aa957aa15d" alt="Users search" width="700">
+  <img src="https://github.com/user-attachments/assets/f84902fb-743c-4e16-a942-b2e228188e9e" alt="Users profile search" width="700">
 
 </div>
 
@@ -154,6 +166,8 @@ In addition to this, you can search for other users.
 <div align="center">
 
 ### 📱 **The page is also 100% responsive**  
+
+---
 
 <div style="display: flex; justify-content: center; gap: 10px;">
 
