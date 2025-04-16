@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'https://yapflix-server.onrender.com/users';
+  // private apiUrl = 'https://yapflix-server.onrender.com/users';
+  private apiUrl = 'https://yapflix-server-production.up.railway.app/users';
 
   constructor(private http: HttpClient, protected router: Router) {}
 

@@ -6,7 +6,9 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class UserProfileService {
-  private apiUrl = 'https://yapflix-server.onrender.com';
+  // private apiUrl = 'https://yapflix-server.onrender.com';
+  private apiUrl = 'https://yapflix-server-production.up.railway.app';
+
   private selectedPost: any = null;
   private searchedUser: any;
 
